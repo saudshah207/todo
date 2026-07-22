@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --standard-spacing: 1rem;
+  --standard-border-radius: 0.5rem;
+}
+
+.grid {
+  display: grid;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.standard-padding {
+  padding: var(--standard-spacing);
+}
+
+.standard-gap {
+  gap: var(--standard-spacing);
+}
+
+.button {
+    padding: 0.35rem var(--standard-spacing);
+}
+
+body {
+  min-height: 100vh;
+
+  --sidebar-preferred-width: 225px;
+  grid-template-columns: minmax(min(var(--sidebar-preferred-width), 100%), 1fr) 5fr;
+}
+
+.dialog {
+  position: fixed;
+
+  --max-width: 600px;
+  width: min(var(--max-width), 100%);
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+label {
+  --input-field-flex-basis: 350px;
+
+  gap: 0.5rem;
+}
+
+input,
+textarea,
+select {
+  padding: 0.5rem;
+  border-radius: var(--standard-border-radius);
+
+  border: 1px solid black;
+}
+
+label > input[type="text"] {
+  min-width: 0;
+}
+
+label > input[type="text"],
+label > textarea {
+  flex: var(--input-field-flex-basis);
+}
+
+label > .label-text {
+  flex: 0 1 10ch;
+}
+
+.check-item-add-button {
+    border-radius: var(--standard-border-radius);
+
+    border: 1px solid black;
+}
+
+.action-buttons {
+  gap: 0.5rem;
+}
+
+.action-buttons > button {
+    flex: 1;
+}

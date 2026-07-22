@@ -5,5 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo App</title>
   </head>
-  <body></body>
+  <body class="grid">
+    <aside class="flex flex-column standard-padding standard-gap">
+      <h2>Todo App</h2>
+      <button class="button">Add New +</button>
+    </aside>
+    <main class="standard-padding">
+      <h1>Your Todos</h1>
+      <ul class="todos"></ul>
+    </main>
+
+    <div class="dialog standard-padding">
+      <form action="" class="flex flex-column standard-gap">
+        <label class="flex flex-wrap" for="title">
+          <span class="label-text">Title:</span>
+          <input type="text" name="title" id="title" required />
+        </label>
+        <label class="flex flex-wrap" for="description">
+          <span class="label-text">Description:</span>
+          <textarea name="description" id="description"></textarea>
+        </label>
+        <label class="flex flex-wrap" for="dueDate">
+          <span class="label-text">Due:</span>
+          <input type="date" name="dueDate" id="dueDate" />
+        </label>
+        <label class="flex flex-wrap" for="priority">
+          <span class="label-text">Priority:</span>
+          <select name="priority" id="priority">
+            <option value="none">None</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </label>
+        <label class="flex flex-wrap" for="title">
+          <span class="label-text">Checklist:</span>
+          <button class="button check-item-add-button" type="button">Add item +</button>
+        </label>
+
+        <div class="action-buttons flex flex-wrap">
+          <button class="button">Add</button>
+          <button class="button" type="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </body>
 </html>

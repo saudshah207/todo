@@ -1,3 +1,4 @@
+import "./base.css";
 import { Todo, CheckListItem } from "./app/Todo.js";
 
 console.log(new Todo("Sleep"));
