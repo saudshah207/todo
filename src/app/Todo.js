@@ -2,6 +2,8 @@ import { CheckListItem } from "./CheckListItem.js";
 import { utils } from "./utils.js";
 
 export class Todo {
+  static #todos = [];
+
   static #priorities = ["low", "medium", "high"];
 
   #id = crypto.randomUUID();
@@ -19,22 +21,31 @@ export class Todo {
     this.checklist = checklist;
   }
 
+  static get todos() {
+    return Todo.#todos;
+  }
+
   set title(title) {
-    if (utils.isValidString(title)) this.#title = title;
+    const isString = utils.isString(title);
+
+    if (utils.isEmptyValue(title, isString)) this.#title = null;
+    else if (isString) this.#title = title.trim();
   }
   get title() {
     return this.#title;
   }
   set description(description) {
-    if (description === null || utils.isValidString(description))
-      this.#description = description;
+    const isString = utils.isString(description);
+
+    if (utils.isEmptyValue(description, isString)) this.#description = null;
+    else if (isString) this.#description = description.trim();
   }
   get description() {
     return this.#description;
   }
   set dueDate(dateString) {
-    if (dateString === null) {
-      this.#dueDate = dateString;
+    if (utils.isEmptyValue(dateString)) {
+      this.#dueDate = null;
 
       return;
     }
@@ -47,8 +58,8 @@ export class Todo {
     return this.#dueDate;
   }
   set priority(priority) {
-    if (priority === null || Todo.#priorities.includes(priority))
-      this.#priority = priority;
+    if (utils.isEmptyValue(priority)) this.#priority = null;
+    else if (Todo.#priorities.includes(priority)) this.#priority = priority;
   }
   get priority() {
     return this.#priority;

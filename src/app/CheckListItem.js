@@ -13,7 +13,10 @@ export class CheckListItem {
   }
 
   set label(label) {
-    if (utils.isValidString(label)) this.#label = label;
+    const isString = utils.isString(label);
+
+    if (utils.isEmptyValue(label, isString)) this.#label = null;
+    else if (isString) this.#label = label;
   }
   get label() {
     return this.#label;

@@ -34,14 +34,16 @@
 }
 
 .button {
-    padding: 0.35rem var(--standard-spacing);
+  padding: 0.35rem var(--standard-spacing);
 }
 
 body {
   min-height: 100vh;
 
   --sidebar-preferred-width: 225px;
-  grid-template-columns: minmax(min(var(--sidebar-preferred-width), 100%), 1fr) 5fr;
+  grid-template-columns:
+    minmax(min(var(--sidebar-preferred-width), 100%), 1fr)
+    5fr;
 }
 
 .dialog {
@@ -53,6 +55,20 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  transition: all 0.3s ease;
+}
+
+.dialog[data-state="closed"] {
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.dialog[data-state="open"] {
+  opacity: 1;
+
+  pointer-events: all;
 }
 
 label {
@@ -84,9 +100,9 @@ label > .label-text {
 }
 
 .check-item-add-button {
-    border-radius: var(--standard-border-radius);
+  border-radius: var(--standard-border-radius);
 
-    border: 1px solid black;
+  border: 1px solid black;
 }
 
 .action-buttons {
@@ -94,5 +110,5 @@ label > .label-text {
 }
 
 .action-buttons > button {
-    flex: 1;
+  flex: 1;
 }
