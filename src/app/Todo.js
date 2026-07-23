@@ -25,6 +25,9 @@ export class Todo {
     return Todo.#todos;
   }
 
+  get id() {
+    return this.#id;
+  }
   set title(title) {
     const isString = utils.isString(title);
 

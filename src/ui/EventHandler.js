@@ -1,4 +1,5 @@
 import { app } from "../app/app.js";
+import { displayTodo } from "./display.js";
 
 class EventHandler {
   static #selectors = {
@@ -33,12 +34,14 @@ class EventHandler {
       formElements.priority.value,
     ];
 
-    app.addTodo({
+    const todo = app.addTodo({
       title,
       description,
       due,
       priority,
     });
+
+    displayTodo(todo);
   }
 
   static #delegateClickEvent(event) {
