@@ -31,15 +31,21 @@ function getTodoElement(todo) {
 
   listItem.dataset.id = todo.id;
   listItem.classList.add(...listItemCssClasses);
+  title.classList.add("todo-title")
   dueDate.classList.add("margin-left-auto");
 
   title.textContent = todo.title;
   markDoneCheckbox.type = "checkbox";
+  markDoneCheckbox.dataset.action = "mark-todo-done";
   dueDate.textContent = todo.dueDate?.toLocaleDateString();
 
   listItem.append(markDoneCheckbox, title, dueDate);
 
   return listItem;
+}
+
+function toggleTodoItemDone(todoItem) {
+  todoItem.classList.toggle("done")
 }
 
 function displayTodo(todo) {
@@ -48,4 +54,4 @@ function displayTodo(todo) {
 
 displayTodos(app.getTodos());
 
-export { displayTodo };
+export { displayTodo, toggleTodoItemDone };

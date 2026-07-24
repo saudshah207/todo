@@ -1,5 +1,5 @@
 import { app } from "../app/app.js";
-import { displayTodo } from "./display.js";
+import { displayTodo, toggleTodoItemDone } from "./display.js";
 import {
   displayAddTodoDialog,
   closeAddTodoDialog,
@@ -42,6 +42,11 @@ class EventHandler {
         break;
       case "close-dialog":
         closeDialog(actionTrigger);
+        break;
+      case "mark-todo-done":
+        const todoItem = actionTrigger.closest(".todo");
+        app.toggleTodoDone(todoItem.dataset.id);
+        toggleTodoItemDone(todoItem);
         break;
     }
   }

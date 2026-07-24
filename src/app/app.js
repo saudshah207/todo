@@ -17,4 +17,10 @@ export const app = {
   getTodos() {
     return Todo.todos;
   },
+
+  toggleTodoDone(todoId) {
+    const todo = Todo.find((todo) => todo.id === todoId);
+
+    todo.toggleDone();
+  },
 };

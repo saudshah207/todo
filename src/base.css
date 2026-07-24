@@ -131,3 +131,7 @@ label > .label-text {
   border-radius: var(--standard-border-radius);
   border: 1px solid black;
 }
+
+.todo.done > .todo-title {
+  text-decoration: line-through;
+}

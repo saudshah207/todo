@@ -12,6 +12,7 @@ export class Todo {
   #dueDate = null;
   #priority = null;
   #checklist = [];
+  #isDone = false;
 
   constructor(title, description, dueDate, priority, checklist) {
     this.title = title;
@@ -79,6 +80,15 @@ export class Todo {
   get checklist() {
     return this.#checklist;
   }
-}
+  get isDone() {
+    return this.#isDone;
+  }
 
-export { CheckListItem };
+  toggleDone() {
+    this.#isDone = !this.#isDone;
+  }
+
+  static find(predicate) {
+    return Todo.#todos.find(predicate);
+  }
+}
