@@ -59,7 +59,7 @@ function addCheckItem(checkItems) {
     checkbox = document.createElement("input"),
     labelInput = document.createElement("input");
 
-  checkItem.classList.add("flex", "standard-gap");
+  checkItem.classList.add("flex", "align-items-center", "standard-gap");
   labelInput.classList.add("check-item-label");
 
   checkbox.type = "checkbox";
