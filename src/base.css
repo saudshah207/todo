@@ -25,12 +25,20 @@
   flex-wrap: wrap;
 }
 
+.align-items-center {
+  align-items: center;
+}
+
 .standard-padding {
   padding: var(--standard-spacing);
 }
 
 .standard-gap {
   gap: var(--standard-spacing);
+}
+
+.margin-left-auto {
+  margin-left: auto;
 }
 
 .button {
@@ -44,6 +52,10 @@ body {
   grid-template-columns:
     minmax(min(var(--sidebar-preferred-width), 100%), 1fr)
     5fr;
+}
+
+.main-title {
+  margin-bottom: var(--standard-spacing);
 }
 
 .dialog {
@@ -111,4 +123,11 @@ label > .label-text {
 
 .action-buttons > button {
   flex: 1;
+}
+
+.todo {
+  margin-bottom: var(--standard-spacing);
+
+  border-radius: var(--standard-border-radius);
+  border: 1px solid black;
 }

@@ -1,30 +1,15 @@
 import { app } from "../app/app.js";
 import { displayTodo } from "./display.js";
+import {
+  displayAddTodoDialog,
+  closeAddTodoDialog,
+  closeDialog,
+} from "./dialog.js";
 
 class EventHandler {
   static #selectors = {
-    dialog: ".dialog",
-    addTodoDialog: "[data-ui='add-todo-dialog']",
     addTodoForm: "[data-ui='add-todo-form']",
   };
-
-  static #addTodoDialog = document.querySelector(
-    EventHandler.#selectors.addTodoDialog,
-  );
-
-  static #displayAddTodoDialog() {
-    EventHandler.#addTodoDialog.dataset.state = "open";
-
-    EventHandler.#addTodoDialog.inert = false;
-  }
-
-  static #closeDialog(closeButton) {
-    const dialog = closeButton.closest(EventHandler.#selectors.dialog);
-
-    dialog.dataset.state = "closed";
-
-    dialog.inert = true;
-  }
 
   static #addTodo(formElements) {
     const [title, description, due, priority] = [
@@ -53,10 +38,10 @@ class EventHandler {
 
     switch (actionTrigger.dataset.action) {
       case "display-add-todo-dialog":
-        EventHandler.#displayAddTodoDialog();
+        displayAddTodoDialog();
         break;
       case "close-dialog":
-        EventHandler.#closeDialog(actionTrigger);
+        closeDialog(actionTrigger);
         break;
     }
   }
@@ -68,7 +53,10 @@ class EventHandler {
 
     event.preventDefault();
 
-    if (isAddTodoForm) EventHandler.#addTodo(target.elements);
+    if (isAddTodoForm) {
+      EventHandler.#addTodo(target.elements);
+      closeAddTodoDialog();
+    }
   }
 
   static {
