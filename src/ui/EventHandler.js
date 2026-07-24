@@ -9,8 +9,9 @@ import {
 class EventHandler {
   static #selectors = {
     actionTrigger: "[data-action]",
-    todoItem: ".todo",
-    checkItems: ".check-items",
+    todoItem: "[data-ui='todo']",
+    checkItems: "[data-ui='check-items']",
+    checkItem: "[data-ui='check-item']",
     addTodoForm: "[data-ui='add-todo-form']",
   };
 
@@ -75,6 +76,11 @@ class EventHandler {
         );
         addCheckItem(checkItemsList);
         break;
+      case "remove-check-item":
+        const checkItem = actionTrigger.closest(
+          EventHandler.#selectors.checkItem,
+        );
+        checkItem.remove();
     }
   }
 

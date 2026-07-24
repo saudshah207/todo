@@ -213,6 +213,10 @@ label > .label-text {
   flex: 0 1 10ch;
 }
 
+.check-item:hover > button {
+  display: unset;
+}
+
 .check-item-label {
   flex: 1;
 }

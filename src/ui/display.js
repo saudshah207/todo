@@ -34,6 +34,7 @@ function getTodoElement(todo) {
   title.classList.add("todo-title");
   dueDate.classList.add("margin-left-auto");
 
+  listItem.dataset.ui = "todo";
   title.textContent = todo.title;
   markDoneCheckbox.type = "checkbox";
   markDoneCheckbox.dataset.action = "mark-todo-done";
@@ -57,18 +58,28 @@ function addCheckItem(checkItems) {
 
   const checkItem = document.createElement("li"),
     checkbox = document.createElement("input"),
-    labelInput = document.createElement("input");
+    labelInput = document.createElement("input"),
+    deleteButton = document.createElement("button");
 
-  checkItem.classList.add("flex", "align-items-center", "standard-gap");
+  checkItem.classList.add(
+    "check-item",
+    "flex",
+    "align-items-center",
+    "standard-gap",
+  );
   labelInput.classList.add("check-item-label");
+  deleteButton.classList.add("button", "display-none");
 
+  checkItem.dataset.ui = "check-item";
   checkbox.type = "checkbox";
   checkbox.name = "isChecked";
   labelInput.type = "text";
   labelInput.name = "checkItem";
   labelInput.required = true;
+  deleteButton.textContent = "Delete";
+  deleteButton.dataset.action = "remove-check-item";
 
-  checkItem.append(checkbox, labelInput);
+  checkItem.append(checkbox, labelInput, deleteButton);
 
   checkItems.append(checkItem);
 }
