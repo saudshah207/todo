@@ -5,8 +5,13 @@
 }
 
 :root {
+  --black: #000000;
+  --white: #ffffff;
+
   --standard-spacing: 1rem;
   --standard-border-radius: 0.5rem;
+  --standard-border: 1px solid var(--black);
+  --standard-box-shadow: 0px 0px 2px 0px rgba(0 0 0 / 0.5);
 }
 
 .grid {
@@ -50,7 +55,19 @@
 }
 
 .button {
-  padding: 0.35rem var(--standard-spacing);
+  appearance: none;
+  padding: 0.5rem var(--standard-spacing);
+
+  color: var(--white);
+  background: var(--black);
+  border-radius: var(--standard-border-radius);
+  border: none;
+}
+
+.button.light-button {
+  color: var(--black);
+  background: var(--white);
+  box-shadow: var(--standard-box-shadow);
 }
 
 body {
@@ -60,6 +77,15 @@ body {
   grid-template-columns:
     minmax(min(var(--sidebar-preferred-width), 100%), 1fr)
     5fr;
+  grid-template-areas: "sidebar main";
+}
+
+aside {
+  grid-area: sidebar;
+}
+
+main {
+  grid-area: main;
 }
 
 .main-title {
@@ -67,16 +93,24 @@ body {
 }
 
 .dialog {
+  --padding-block: calc(var(--standard-spacing) * 2);
+  --padding-inline: calc(var(--standard-spacing) * 1.5);
+  padding: var(--padding-block) var(--padding-inline);
+
   position: fixed;
 
   --max-width: 600px;
-  width: min(var(--max-width), 100%);
+  width: min(var(--max-width), 95%);
 
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
   transition: all 0.3s ease;
+
+  box-shadow: var(--standard-box-shadow);
+  border-radius: var(--standard-border-radius);
+  background: var(--white);
 }
 
 .dialog[data-state="closed"] {
@@ -103,7 +137,39 @@ select {
   padding: 0.5rem;
   border-radius: var(--standard-border-radius);
 
-  border: 1px solid black;
+  border: var(--standard-border);
+}
+
+textarea {
+  resize: vertical;
+}
+
+select {
+  appearance: none;
+  background: transparent;
+
+  padding-right: 3rem;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: "";
+
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 6px;
+
+  background: url(./icons/arrow-down.svg) center/contain no-repeat;
+
+  pointer-events: none;
 }
 
 label > input[type="text"] {
@@ -112,7 +178,7 @@ label > input[type="text"] {
 
 label > input[type="text"],
 label > textarea,
-label > div {
+label > .check-items-wrapper {
   flex: var(--input-field-flex-basis);
 }
 
@@ -127,7 +193,7 @@ label > .label-text {
 .check-item-add-button {
   border-radius: var(--standard-border-radius);
 
-  border: 1px solid black;
+  border: var(--standard-border);
 }
 
 .action-buttons {
@@ -142,9 +208,20 @@ label > .label-text {
   margin-bottom: var(--standard-spacing);
 
   border-radius: var(--standard-border-radius);
-  border: 1px solid black;
+  border: var(--standard-border);
 }
 
 .todo.done > .todo-title {
   text-decoration: line-through;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    grid-template-areas: "sidebar sidebar" "main main";
+    grid-auto-rows: min-content;
+  }
+
+  .dialog {
+    --standard-spacing: 0.7rem;
+  }
 }

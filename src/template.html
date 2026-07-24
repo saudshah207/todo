@@ -17,8 +17,17 @@
       <ul class="todos list-style-none"></ul>
     </main>
 
-    <div inert data-ui="add-todo-dialog" class="dialog standard-padding" data-state="closed">
-      <form data-ui="add-todo-form" action="" class="flex flex-column standard-gap">
+    <div
+      inert
+      data-ui="add-todo-dialog"
+      class="dialog"
+      data-state="closed"
+    >
+      <form
+        data-ui="add-todo-form"
+        action=""
+        class="flex flex-column standard-gap"
+      >
         <label class="flex flex-wrap" for="title">
           <span class="label-text">Title:</span>
           <input type="text" name="title" id="title" required />
@@ -33,18 +42,27 @@
         </label>
         <label class="flex flex-wrap" for="priority">
           <span class="label-text">Priority:</span>
-          <select name="priority" id="priority">
-            <option value="">None</option>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
+          <div class="select-wrapper flex">
+            <select name="priority" id="priority">
+              <option value="">None</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
         </label>
         <label class="flex flex-wrap" for="check-items">
           <span class="label-text">Checklist:</span>
-          <div class="flex flex-column standard-gap">
-            <ul id="check-items" class="display-none check-items list-style-none flex flex-column standard-gap"></ul>
-            <button data-action="add-check-item" class="button check-item-add-button" type="button">
+          <div class="check-items-wrapper flex flex-column standard-gap">
+            <ul
+              id="check-items"
+              class="display-none check-items list-style-none flex flex-column standard-gap"
+            ></ul>
+            <button
+              data-action="add-check-item"
+              class="button check-item-add-button"
+              type="button"
+            >
               Add item +
             </button>
           </div>
@@ -52,7 +70,7 @@
 
         <div class="action-buttons flex flex-wrap">
           <button class="button">Add</button>
-          <button data-action="close-dialog" class="button" type="button">
+          <button data-action="close-dialog" class="button light-button" type="button">
             Cancel
           </button>
         </div>
