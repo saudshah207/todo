@@ -28,11 +28,11 @@ class EventHandler {
       checkItems = [];
 
     // Array.isArray doesn't work because checkItemFromElements is a RadioNodeList
-    if (checkItemElements.length) {
+    if (checkItemElements?.length) {
       for (const checkItem of checkItemElements) {
         checkItems.push(checkItem.value);
       }
-    } else checkItems.push(checkItemElements.value);
+    } else checkItems.push(checkItemElements?.value);
 
     const todo = app.addTodo({
       title,
