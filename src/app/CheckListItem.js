@@ -4,8 +4,9 @@ export class CheckListItem {
   #label;
   #isChecked = false;
 
-  constructor(label) {
+  constructor(label, isChecked) {
     this.label = label;
+    this.isChecked = isChecked;
   }
 
   toggle() {
@@ -21,7 +22,9 @@ export class CheckListItem {
   get label() {
     return this.#label;
   }
-
+  set isChecked(isChecked) {
+    if (typeof isChecked === "boolean") this.#isChecked = isChecked;
+  }
   get isChecked() {
     return this.#isChecked;
   }

@@ -63,6 +63,7 @@ function addCheckItem(checkItems) {
   labelInput.classList.add("check-item-label");
 
   checkbox.type = "checkbox";
+  checkbox.name = "isChecked";
   labelInput.type = "text";
   labelInput.name = "checkItem";
   labelInput.required = true;

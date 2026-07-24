@@ -25,14 +25,17 @@ class EventHandler {
     ];
 
     const checkItemElements = formElements.checkItem,
-      checkItems = [];
+      checkItemsCheckedStates = formElements.isChecked,
+      checkItems = {};
 
-    // Array.isArray doesn't work because checkItemFromElements is a RadioNodeList
+    // Array.isArray doesn't work because checkItemElements is a RadioNodeList
     if (checkItemElements?.length) {
-      for (const checkItem of checkItemElements) {
-        checkItems.push(checkItem.value);
+      for (let i = 0; i < checkItemElements.length; i++) {
+        checkItems[checkItemElements[i].value] =
+          checkItemsCheckedStates[i].checked;
       }
-    } else checkItems.push(checkItemElements?.value);
+    } else
+      checkItems[checkItemElements?.value] = checkItemsCheckedStates?.checked;
 
     const todo = app.addTodo({
       title,

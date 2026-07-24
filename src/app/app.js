@@ -1,10 +1,10 @@
 import { Todo, CheckListItem } from "./Todo.js";
 
-function getCheckListItems(labels) {
+function getCheckListItems(checkItemsObject) {
   const checkListItems = [];
 
-  for (const label of labels) {
-    checkListItems.push(new CheckListItem(label));
+  for (const [label, isChecked] of Object.entries(checkItemsObject)) {
+    checkListItems.push(new CheckListItem(label, isChecked));
   }
 
   return checkListItems;
