@@ -41,6 +41,14 @@
   margin-left: auto;
 }
 
+.list-style-none {
+  list-style: none;
+}
+
+.display-none {
+  display: none;
+}
+
 .button {
   padding: 0.35rem var(--standard-spacing);
 }
@@ -103,12 +111,17 @@ label > input[type="text"] {
 }
 
 label > input[type="text"],
-label > textarea {
+label > textarea,
+label > div {
   flex: var(--input-field-flex-basis);
 }
 
 label > .label-text {
   flex: 0 1 10ch;
+}
+
+.check-item-label {
+  flex: 1;
 }
 
 .check-item-add-button {

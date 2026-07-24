@@ -31,7 +31,7 @@ function getTodoElement(todo) {
 
   listItem.dataset.id = todo.id;
   listItem.classList.add(...listItemCssClasses);
-  title.classList.add("todo-title")
+  title.classList.add("todo-title");
   dueDate.classList.add("margin-left-auto");
 
   title.textContent = todo.title;
@@ -45,13 +45,33 @@ function getTodoElement(todo) {
 }
 
 function toggleTodoItemDone(todoItem) {
-  todoItem.classList.toggle("done")
+  todoItem.classList.toggle("done");
 }
 
 function displayTodo(todo) {
   todosList.append(getTodoElement(todo));
 }
 
+function addCheckItem(checkItems) {
+  checkItems.classList.remove("display-none");
+
+  const checkItem = document.createElement("li"),
+    checkbox = document.createElement("input"),
+    labelInput = document.createElement("input");
+
+  checkItem.classList.add("flex", "standard-gap");
+  labelInput.classList.add("check-item-label");
+
+  checkbox.type = "checkbox";
+  labelInput.type = "text";
+  labelInput.name = "checkItem";
+  labelInput.required = true;
+
+  checkItem.append(checkbox, labelInput);
+
+  checkItems.append(checkItem);
+}
+
 displayTodos(app.getTodos());
 
-export { displayTodo, toggleTodoItemDone };
+export { displayTodo, toggleTodoItemDone, addCheckItem };

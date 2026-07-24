@@ -92,3 +92,5 @@ export class Todo {
     return Todo.#todos.find(predicate);
   }
 }
+
+export { CheckListItem };

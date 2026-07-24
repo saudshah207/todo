@@ -1,5 +1,5 @@
 import { app } from "../app/app.js";
-import { displayTodo, toggleTodoItemDone } from "./display.js";
+import { displayTodo, toggleTodoItemDone, addCheckItem } from "./display.js";
 import {
   displayAddTodoDialog,
   closeAddTodoDialog,
@@ -8,10 +8,15 @@ import {
 
 class EventHandler {
   static #selectors = {
+    actionTrigger: "[data-action]",
+    todoItem: ".todo",
+    checkItems: ".check-items",
     addTodoForm: "[data-ui='add-todo-form']",
   };
 
   static #addTodo(formElements) {
+    console.log(formElements);
+
     const [title, description, due, priority] = [
       formElements.title.value,
       formElements.description.value,
@@ -19,11 +24,22 @@ class EventHandler {
       formElements.priority.value,
     ];
 
+    const checkItemElements = formElements.checkItem,
+      checkItems = [];
+
+    // Array.isArray doesn't work because checkItemFromElements is a RadioNodeList
+    if (checkItemElements.length) {
+      for (const checkItem of checkItemElements) {
+        checkItems.push(checkItem.value);
+      }
+    } else checkItems.push(checkItemElements.value);
+
     const todo = app.addTodo({
       title,
       description,
       due,
       priority,
+      checkItems,
     });
 
     displayTodo(todo);
@@ -32,7 +48,7 @@ class EventHandler {
   static #delegateClickEvent(event) {
     const target = event.target;
 
-    const actionTrigger = target.closest("[data-action]");
+    const actionTrigger = target.closest(EventHandler.#selectors.actionTrigger);
 
     if (!actionTrigger) return;
 
@@ -44,9 +60,17 @@ class EventHandler {
         closeDialog(actionTrigger);
         break;
       case "mark-todo-done":
-        const todoItem = actionTrigger.closest(".todo");
+        const todoItem = actionTrigger.closest(
+          EventHandler.#selectors.todoItem,
+        );
         app.toggleTodoDone(todoItem.dataset.id);
         toggleTodoItemDone(todoItem);
+        break;
+      case "add-check-item":
+        const checkItemsList = actionTrigger.parentElement.querySelector(
+          EventHandler.#selectors.checkItems,
+        );
+        addCheckItem(checkItemsList);
         break;
     }
   }

@@ -14,7 +14,7 @@
     </aside>
     <main class="standard-padding">
       <h1 class="main-title">Your Todos</h1>
-      <ul class="todos"></ul>
+      <ul class="todos list-style-none"></ul>
     </main>
 
     <div inert data-ui="add-todo-dialog" class="dialog standard-padding" data-state="closed">
@@ -40,11 +40,14 @@
             <option value="high">High</option>
           </select>
         </label>
-        <label class="flex flex-wrap" for="title">
+        <label class="flex flex-wrap" for="check-items">
           <span class="label-text">Checklist:</span>
-          <button class="button check-item-add-button" type="button">
-            Add item +
-          </button>
+          <div class="flex flex-column standard-gap">
+            <ul id="check-items" class="display-none check-items list-style-none flex flex-column standard-gap"></ul>
+            <button data-action="add-check-item" class="button check-item-add-button" type="button">
+              Add item +
+            </button>
+          </div>
         </label>
 
         <div class="action-buttons flex flex-wrap">
