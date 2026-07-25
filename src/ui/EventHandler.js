@@ -3,7 +3,10 @@ import { displayTodo, toggleTodoItemDone, addCheckItem } from "./display.js";
 import {
   displayAddTodoDialog,
   closeAddTodoDialog,
+  displayEditTodoDialog,
+  closeEditTodoDialog,
   closeDialog,
+  insertEditTodoData,
 } from "./dialog.js";
 
 class EventHandler {
@@ -81,6 +84,12 @@ class EventHandler {
           EventHandler.#selectors.checkItem,
         );
         checkItem.remove();
+        break;
+      case "edit-todo":
+        const todo = app.getTodo(actionTrigger.dataset.id);
+        insertEditTodoData(todo);
+        displayEditTodoDialog();
+        break;
     }
   }
 

@@ -35,6 +35,7 @@ function getTodoElement(todo) {
   dueDate.classList.add("margin-left-auto");
 
   listItem.dataset.ui = "todo";
+  listItem.dataset.action = "edit-todo";
   title.textContent = todo.title;
   markDoneCheckbox.type = "checkbox";
   markDoneCheckbox.dataset.action = "mark-todo-done";
@@ -82,6 +83,8 @@ function addCheckItem(checkItems) {
   checkItem.append(checkbox, labelInput, deleteButton);
 
   checkItems.append(checkItem);
+
+  return checkItem;
 }
 
 displayTodos(app.getTodos());
