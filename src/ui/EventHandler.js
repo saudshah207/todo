@@ -38,7 +38,7 @@ class EventHandler {
         checkItems[checkItemElements[i].value] =
           checkItemsCheckedStates[i].checked;
       }
-    } else
+    } else if (checkItemElements)
       checkItems[checkItemElements?.value] = checkItemsCheckedStates?.checked;
 
     const todo = app.addTodo({
