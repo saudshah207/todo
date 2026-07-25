@@ -46,51 +46,55 @@ function getTodoElement(todo) {
   return listItem;
 }
 
-function toggleTodoItemDone(todoItem) {
-  todoItem.classList.toggle("done");
-}
+const display = {
+  toggleTodoDone(todoItem) {
+    todoItem.classList.toggle("done");
+  },
 
-function displayTodo(todo) {
-  todosList.append(getTodoElement(todo));
-}
+  displayTodo(todo) {
+    todosList.append(getTodoElement(todo));
+  },
 
-function removeTodo(todoId) {
-  todosList.querySelector(`[data-id='${todoId}']`).remove();
-}
+  removeTodo(todoId) {
+    todosList.querySelector(`[data-id='${todoId}']`).remove();
+  },
 
-function addCheckItem(checkItems) {
-  checkItems.classList.remove("display-none");
+  addCheckItem(checkItems) {
+    checkItems.classList.remove("display-none");
 
-  const checkItem = document.createElement("li"),
-    checkbox = document.createElement("input"),
-    labelInput = document.createElement("input"),
-    deleteButton = document.createElement("button");
+    const checkItem = document.createElement("li"),
+      checkbox = document.createElement("input"),
+      labelInput = document.createElement("input"),
+      deleteButton = document.createElement("button");
 
-  checkItem.classList.add(
-    "check-item",
-    "flex",
-    "align-items-center",
-    "standard-gap",
-  );
-  labelInput.classList.add("check-item-label");
-  deleteButton.classList.add("button", "display-none");
+    checkItem.classList.add(
+      "check-item",
+      "flex",
+      "align-items-center",
+      "standard-gap",
+    );
+    labelInput.classList.add("check-item-label");
+    deleteButton.classList.add("button", "display-none");
 
-  checkItem.dataset.ui = "check-item";
-  checkbox.type = "checkbox";
-  checkbox.name = "isChecked";
-  labelInput.type = "text";
-  labelInput.name = "checkItem";
-  labelInput.required = true;
-  deleteButton.textContent = "Delete";
-  deleteButton.dataset.action = "remove-check-item";
+    checkItem.dataset.ui = "check-item";
+    checkbox.type = "checkbox";
+    checkbox.name = "isChecked";
+    labelInput.type = "text";
+    labelInput.name = "checkItem";
+    labelInput.required = true;
+    deleteButton.textContent = "Delete";
+    deleteButton.dataset.action = "remove-check-item";
 
-  checkItem.append(checkbox, labelInput, deleteButton);
+    checkItem.append(checkbox, labelInput, deleteButton);
 
-  checkItems.append(checkItem);
+    checkItems.append(checkItem);
 
-  return checkItem;
-}
+    return checkItem;
+  },
+};
 
 displayTodos(app.getTodos());
 
-export { displayTodo, toggleTodoItemDone, addCheckItem, removeTodo };
+const { addCheckItem } = display;
+
+export { display, addCheckItem };

@@ -50,7 +50,7 @@ export const app = {
   },
 
   toggleTodoDone(todoId) {
-    const todo = Todo.find((todo) => todo.id === todoId);
+    const todo = this.getTodo(todoId);
 
     todo.toggleDone();
   },

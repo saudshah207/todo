@@ -1,10 +1,5 @@
 import { app } from "../app/app.js";
-import {
-  displayTodo,
-  toggleTodoItemDone,
-  addCheckItem,
-  removeTodo,
-} from "./display.js";
+import { display } from "./display.js";
 import {
   displayAddTodoDialog,
   closeAddTodoDialog,
@@ -59,13 +54,13 @@ class EventHandler {
   static #addTodo(formValues) {
     const todo = app.addTodo(formValues);
 
-    displayTodo(todo);
+    display.displayTodo(todo);
   }
 
   static #updateTodo(todoId, formValues) {
-    removeTodo(todoId);
+    display.removeTodo(todoId);
 
-    displayTodo(app.updateTodo(todoId, formValues));
+    display.displayTodo(app.updateTodo(todoId, formValues));
   }
 
   static #delegateClickEvent(event) {
@@ -87,13 +82,13 @@ class EventHandler {
           EventHandler.#selectors.todoItem,
         );
         app.toggleTodoDone(todoItem.dataset.id);
-        toggleTodoItemDone(todoItem);
+        display.toggleTodoDone(todoItem);
         break;
       case "add-check-item":
         const checkItemsList = actionTrigger.parentElement.querySelector(
           EventHandler.#selectors.checkItems,
         );
-        addCheckItem(checkItemsList);
+        display.addCheckItem(checkItemsList);
         break;
       case "remove-check-item":
         const checkItem = actionTrigger.closest(
