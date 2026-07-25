@@ -1,5 +1,10 @@
 import { app } from "../app/app.js";
-import { displayTodo, toggleTodoItemDone, addCheckItem } from "./display.js";
+import {
+  displayTodo,
+  toggleTodoItemDone,
+  addCheckItem,
+  removeTodo,
+} from "./display.js";
 import {
   displayAddTodoDialog,
   closeAddTodoDialog,
@@ -16,9 +21,10 @@ class EventHandler {
     checkItems: "[data-ui='check-items']",
     checkItem: "[data-ui='check-item']",
     addTodoForm: "[data-ui='add-todo-form']",
+    editTodoForm: "[data-ui='edit-todo-form']",
   };
 
-  static #addTodo(formElements) {
+  static #getFormValues(formElements) {
     console.log(formElements);
 
     const [title, description, due, priority] = [
@@ -41,15 +47,25 @@ class EventHandler {
     } else if (checkItemElements)
       checkItems[checkItemElements?.value] = checkItemsCheckedStates?.checked;
 
-    const todo = app.addTodo({
+    return {
       title,
       description,
       due,
       priority,
       checkItems,
-    });
+    };
+  }
+
+  static #addTodo(formValues) {
+    const todo = app.addTodo(formValues);
 
     displayTodo(todo);
+  }
+
+  static #updateTodo(todoId, formValues) {
+    removeTodo(todoId);
+
+    displayTodo(app.updateTodo(todoId, formValues));
   }
 
   static #delegateClickEvent(event) {
@@ -96,13 +112,19 @@ class EventHandler {
   static #delegateSubmitEvent(event) {
     const target = event.target;
 
-    const isAddTodoForm = target.closest(EventHandler.#selectors.addTodoForm);
+    const isAddTodoForm = target.closest(EventHandler.#selectors.addTodoForm),
+      isEditTodoForm = target.closest(EventHandler.#selectors.editTodoForm);
 
     event.preventDefault();
 
+    const formValues = EventHandler.#getFormValues(target.elements);
+
     if (isAddTodoForm) {
-      EventHandler.#addTodo(target.elements);
+      EventHandler.#addTodo(formValues);
       closeAddTodoDialog();
+    } else if (isEditTodoForm) {
+      EventHandler.#updateTodo(target.dataset.id, formValues);
+      closeEditTodoDialog();
     }
   }
 

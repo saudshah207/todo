@@ -27,6 +27,20 @@ export const app = {
     return todo;
   },
 
+  updateTodo(todoId, todoData) {
+    const todo = this.getTodo(todoId);
+
+    todo.title = todoData.title;
+    todo.description = todoData.description;
+    todo.dueDate = todoData.dueDate;
+    todo.priority = todoData.priority;
+    todo.checklist = getCheckListItems(todoData.checkItems);
+
+    console.log(Todo.todos);
+
+    return todo;
+  },
+
   getTodos() {
     return Todo.todos;
   },

@@ -6,6 +6,7 @@ const selectors = {
   checkItemCheckBox: "[name='isChecked']",
   addTodoDialog: "[data-ui='add-todo-dialog']",
   editTodoDialog: "[data-ui='edit-todo-dialog']",
+  editTodoForm: "[data-ui='edit-todo-form']",
   editTodoDialogCheckItems: "[data-ui='check-items']",
   editTodoDialogTitle: "#edit-title",
   editTodoDialogDescription: "#edit-description",
@@ -17,6 +18,7 @@ const addTodoDialog = document.querySelector(selectors.addTodoDialog);
 
 const editTodoDialog = getEditTodoDialog([
   { dialog: selectors.editTodoDialog },
+  { form: selectors.editTodoForm },
   { checkItemsList: selectors.editTodoDialogCheckItems },
   { title: selectors.editTodoDialogTitle },
   { description: selectors.editTodoDialogDescription },
@@ -75,6 +77,7 @@ function closeDialog(closeButton) {
 }
 
 function insertEditTodoData(todo) {
+  editTodoDialog.form.dataset.id = todo.id;
   editTodoDialog.title.value = todo.title;
   editTodoDialog.description.value = todo.description;
   editTodoDialog.dueDate.value = todo.dueDate?.toLocaleDateString();

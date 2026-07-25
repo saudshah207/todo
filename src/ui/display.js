@@ -54,6 +54,10 @@ function displayTodo(todo) {
   todosList.append(getTodoElement(todo));
 }
 
+function removeTodo(todoId) {
+  todosList.querySelector(`[data-id='${todoId}']`).remove();
+}
+
 function addCheckItem(checkItems) {
   checkItems.classList.remove("display-none");
 
@@ -89,4 +93,4 @@ function addCheckItem(checkItems) {
 
 displayTodos(app.getTodos());
 
-export { displayTodo, toggleTodoItemDone, addCheckItem };
+export { displayTodo, toggleTodoItemDone, addCheckItem, removeTodo };
