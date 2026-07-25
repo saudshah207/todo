@@ -7,10 +7,10 @@ const selectors = {
   addTodoDialog: "[data-ui='add-todo-dialog']",
   editTodoDialog: "[data-ui='edit-todo-dialog']",
   editTodoDialogCheckItems: "[data-ui='check-items']",
-  editTodoDialogTitle: "#title",
-  editTodoDialogDescription: "#description",
-  editTodoDialogDueDate: "#dueDate",
-  editTodoDialogPriority: "#priority",
+  editTodoDialogTitle: "#edit-title",
+  editTodoDialogDescription: "#edit-description",
+  editTodoDialogDueDate: "#edit-dueDate",
+  editTodoDialogPriority: "#edit-priority",
 };
 
 const addTodoDialog = document.querySelector(selectors.addTodoDialog);
