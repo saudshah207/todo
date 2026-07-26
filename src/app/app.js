@@ -15,7 +15,7 @@ export const app = {
     const todo = new Todo(
       todoData.title,
       todoData.description,
-      todoData.due,
+      todoData.dueDate,
       todoData.priority,
       getCheckListItems(todoData.checkItems),
     );

@@ -15,7 +15,7 @@ class EventHandler {
   static #getFormValues(formElements) {
     console.log(formElements);
 
-    const [title, description, due, priority] = [
+    const [title, description, dueDate, priority] = [
       formElements.title.value,
       formElements.description.value,
       formElements.dueDate.value,
@@ -38,7 +38,7 @@ class EventHandler {
     return {
       title,
       description,
-      due,
+      dueDate,
       priority,
       checkItems,
     };
