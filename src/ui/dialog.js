@@ -1,4 +1,5 @@
 import { addCheckItem } from "./display.js";
+import { getFormattedDateString } from "./date.js";
 
 const selectors = {
   dialog: ".dialog",
@@ -64,7 +65,7 @@ const canBePopulatedWithTodoData = {
     this.form.dataset.id = todo.id;
     this.title.value = todo.title;
     this.description.value = todo.description;
-    this.dueDate.value = todo.dueDate?.toLocaleDateString();
+    this.dueDate.value = getFormattedDateString(todo.dueDate);
     this.priority.value = todo.priority ? todo.priority : "";
 
     this.checkItemsList.replaceChildren();
@@ -96,7 +97,5 @@ editTodoDialog.addElementsToBePopulated([
   { priority: selectors.editTodoDialogPriority },
   { checkItemsList: selectors.checkItemsList },
 ]);
-
-console.log(editTodoDialog, addTodoDialog);
 
 export { addTodoDialog, editTodoDialog, Dialog };
