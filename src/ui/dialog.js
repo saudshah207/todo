@@ -1,4 +1,4 @@
-import { addCheckItem } from "./display.js";
+import { checkItem } from "./checkItem.js";
 import { getFormattedDateString } from "./date.js";
 
 const selectors = {
@@ -71,13 +71,13 @@ const canBePopulatedWithTodoData = {
 
     this.checkItemsList.replaceChildren();
 
-    for (const checkItem of todo.checklist) {
-      const checkItemElement = addCheckItem(this.checkItemsList);
+    for (const checkListItem of todo.checklist) {
+      const checkItemElement = checkItem.add(this.checkItemsList);
 
       checkItemElement.querySelector(selectors.checkListItem).value =
-        checkItem.label;
+        checkListItem.label;
       checkItemElement.querySelector(selectors.checkItemCheckBox).checked =
-        checkItem.isChecked;
+        checkListItem.isChecked;
     }
   },
 };

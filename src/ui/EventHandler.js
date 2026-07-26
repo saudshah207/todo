@@ -1,5 +1,7 @@
 import { app } from "../app/app.js";
-import { display } from "./display.js";
+import { todosList } from "./todosList.js";
+import { projectsList } from "./projectsList.js";
+import { checkItem } from "./checkItem.js";
 import {
   addTodoDialog,
   editTodoDialog,
@@ -49,15 +51,13 @@ class EventHandler {
   }
 
   static #addTodo(formValues) {
-    const todo = app.addTodo(formValues);
-
-    display.displayTodo(todo);
+    todosList.display(app.addTodo(formValues));
   }
 
   static #updateTodo(todoId, formValues) {
-    display.removeTodo(todoId);
+    todosList.remove(todoId);
 
-    display.displayTodo(app.updateTodo(todoId, formValues));
+    todosList.display(app.updateTodo(todoId, formValues));
   }
 
   static #delegateClickEvent(event) {
@@ -79,19 +79,19 @@ class EventHandler {
           EventHandler.#selectors.todoItem,
         );
         app.toggleTodoDone(todoItem.dataset.id);
-        display.toggleTodoDone(todoItem);
+        todosList.toggleDone(todoItem);
         break;
       case "add-check-item":
         const checkItemsList = actionTrigger.parentElement.querySelector(
           EventHandler.#selectors.checkItems,
         );
-        display.addCheckItem(checkItemsList);
+        checkItem.add(checkItemsList);
         break;
       case "remove-check-item":
-        const checkItem = actionTrigger.closest(
+        const checkItemElement = actionTrigger.closest(
           EventHandler.#selectors.checkItem,
         );
-        checkItem.remove();
+        checkItemElement.remove();
         break;
       case "edit-todo":
         const todo = app.getTodo(actionTrigger.dataset.id);
@@ -127,7 +127,7 @@ class EventHandler {
     } else if (isAddProjectForm) {
       const project = app.addProject(formElements.title.value);
 
-      display.displayProject(project);
+      projectsList.display(project);
 
       addProjectDialog.close();
     }
