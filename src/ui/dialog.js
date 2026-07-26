@@ -13,6 +13,7 @@ const selectors = {
   editTodoDialogDescription: "#edit-description",
   editTodoDialogDueDate: "#edit-dueDate",
   editTodoDialogPriority: "#edit-priority",
+  addProjectDialog: "[data-ui='add-project-dialog']",
 };
 
 class Dialog {
@@ -98,4 +99,8 @@ editTodoDialog.addElementsToBePopulated([
   { checkItemsList: selectors.checkItemsList },
 ]);
 
-export { addTodoDialog, editTodoDialog, Dialog };
+const addProjectDialog = new Dialog(
+  document.querySelector(selectors.addProjectDialog),
+);
+
+export { addTodoDialog, editTodoDialog, addProjectDialog, Dialog };

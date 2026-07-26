@@ -1,6 +1,11 @@
 import { app } from "../app/app.js";
 import { display } from "./display.js";
-import { addTodoDialog, editTodoDialog, Dialog } from "./dialog.js";
+import {
+  addTodoDialog,
+  editTodoDialog,
+  addProjectDialog,
+  Dialog,
+} from "./dialog.js";
 
 class EventHandler {
   static #selectors = {
@@ -10,11 +15,10 @@ class EventHandler {
     checkItem: "[data-ui='check-item']",
     addTodoForm: "[data-ui='add-todo-form']",
     editTodoForm: "[data-ui='edit-todo-form']",
+    addProjectForm: "[data-ui='add-project-form']",
   };
 
-  static #getFormValues(formElements) {
-    console.log(formElements);
-
+  static #getTodoFormValues(formElements) {
     const [title, description, dueDate, priority] = [
       formElements.title.value,
       formElements.description.value,
@@ -94,6 +98,9 @@ class EventHandler {
         editTodoDialog.populate(todo);
         editTodoDialog.display();
         break;
+      case "display-add-project-dialog":
+        addProjectDialog.display();
+        break;
     }
   }
 
@@ -101,18 +108,28 @@ class EventHandler {
     const target = event.target;
 
     const isAddTodoForm = target.closest(EventHandler.#selectors.addTodoForm),
-      isEditTodoForm = target.closest(EventHandler.#selectors.editTodoForm);
+      isEditTodoForm = target.closest(EventHandler.#selectors.editTodoForm),
+      isAddProjectForm = target.closest(EventHandler.#selectors.addProjectForm);
 
     event.preventDefault();
 
-    const formValues = EventHandler.#getFormValues(target.elements);
+    const formElements = target.elements;
 
     if (isAddTodoForm) {
-      EventHandler.#addTodo(formValues);
+      EventHandler.#addTodo(EventHandler.#getTodoFormValues(formElements));
       addTodoDialog.close();
     } else if (isEditTodoForm) {
-      EventHandler.#updateTodo(target.dataset.id, formValues);
+      EventHandler.#updateTodo(
+        target.dataset.id,
+        EventHandler.#getTodoFormValues(formElements),
+      );
       editTodoDialog.close();
+    } else if (isAddProjectForm) {
+      const project = app.addProject(formElements.title.value);
+
+      display.displayProject(project);
+
+      addProjectDialog.close();
     }
   }
 

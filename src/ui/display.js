@@ -2,9 +2,11 @@ import { app } from "../app/app.js";
 
 const selectors = {
   todosList: ".todos",
+  projectsList: "[data-ui='projects']",
 };
 
-const todosList = document.querySelector(selectors.todosList);
+const todosList = document.querySelector(selectors.todosList),
+  projectsList = document.querySelector(selectors.projectsList);
 
 function displayTodos(todos) {
   todosList.replaceChildren();
@@ -42,6 +44,32 @@ function getTodoElement(todo) {
   dueDate.textContent = todo.dueDate?.toLocaleDateString();
 
   listItem.append(markDoneCheckbox, title, dueDate);
+
+  return listItem;
+}
+
+function getProjectElement(project) {
+  const listItem = document.createElement("li"),
+    projectButton = document.createElement("button"),
+    title = document.createElement("h3");
+
+  const projectButtonCssClasses = [
+    "button",
+    "light-button",
+    "flex",
+    "standard-gap",
+    "align-items-center",
+  ];
+
+  projectButton.classList.add(...projectButtonCssClasses);
+
+  projectButton.dataset.id = project.id;
+  projectButton.dataset.action = "display-project-todos";
+  title.textContent = project.title;
+
+  projectButton.append(title);
+
+  listItem.append(projectButton);
 
   return listItem;
 }
@@ -90,6 +118,12 @@ const display = {
     checkItems.append(checkItem);
 
     return checkItem;
+  },
+
+  displayProject(project) {
+    projectsList.classList.remove("display-none");
+
+    projectsList.append(getProjectElement(project));
   },
 };
 

@@ -125,6 +125,12 @@ main {
   pointer-events: all;
 }
 
+.dialog-title {
+  --margin-bottom: calc(var(--standard-spacing) * 1.5);
+
+  margin-bottom: var(--margin-bottom);
+}
+
 label {
   --input-field-flex-basis: 350px;
 

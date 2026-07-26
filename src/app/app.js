@@ -1,4 +1,5 @@
 import { Todo, CheckListItem } from "./Todo.js";
+import { Project } from "./Project.js";
 
 function getCheckListItems(checkItemsObject) {
   const checkListItems = [];
@@ -22,8 +23,6 @@ export const app = {
 
     Todo.todos.push(todo);
 
-    console.log(Todo.todos);
-
     return todo;
   },
 
@@ -35,8 +34,6 @@ export const app = {
     todo.dueDate = todoData.dueDate;
     todo.priority = todoData.priority;
     todo.checklist = getCheckListItems(todoData.checkItems);
-
-    console.log(Todo.todos);
 
     return todo;
   },
@@ -53,5 +50,15 @@ export const app = {
     const todo = this.getTodo(todoId);
 
     todo.toggleDone();
+  },
+
+  addProject(title) {
+    const project = new Project(title);
+
+    Project.projects.push(project);
+
+    console.log(Project.projects);
+
+    return project;
   },
 };

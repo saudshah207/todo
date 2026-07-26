@@ -11,6 +11,12 @@
       <button data-action="display-add-todo-dialog" class="button">
         Add New +
       </button>
+
+      <h2>Projects</h2>
+      <ul data-ui="projects" class="display-none list-style-none flex flex-column standard-gap"></ul>
+      <button data-action="display-add-project-dialog" class="button">
+        Create New Project +
+      </button>
     </aside>
     <main class="standard-padding">
       <h1 class="main-title">Your Todos</h1>
@@ -126,6 +132,32 @@
 
         <div class="action-buttons flex flex-wrap">
           <button class="button">Save Changes</button>
+          <button
+            data-action="close-dialog"
+            class="button light-button"
+            type="button"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div inert data-ui="add-project-dialog" class="dialog" data-state="closed">
+      <h3 class="dialog-title">Create Project</h3>
+
+      <form
+        data-ui="add-project-form"
+        action=""
+        class="flex flex-column standard-gap"
+      >
+        <label class="flex flex-wrap" for="add-project-title">
+          <span class="label-text">Title:</span>
+          <input type="text" name="title" id="add-project-title" required />
+        </label>
+
+        <div class="action-buttons flex flex-wrap">
+          <button class="button">Create</button>
           <button
             data-action="close-dialog"
             class="button light-button"
