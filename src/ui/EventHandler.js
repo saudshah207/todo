@@ -1,13 +1,6 @@
 import { app } from "../app/app.js";
 import { display } from "./display.js";
-import {
-  displayAddTodoDialog,
-  closeAddTodoDialog,
-  displayEditTodoDialog,
-  closeEditTodoDialog,
-  closeDialog,
-  insertEditTodoData,
-} from "./dialog.js";
+import { addTodoDialog, editTodoDialog, Dialog } from "./dialog.js";
 
 class EventHandler {
   static #selectors = {
@@ -72,10 +65,10 @@ class EventHandler {
 
     switch (actionTrigger.dataset.action) {
       case "display-add-todo-dialog":
-        displayAddTodoDialog();
+        addTodoDialog.display();
         break;
       case "close-dialog":
-        closeDialog(actionTrigger);
+        Dialog.closeDialog(actionTrigger);
         break;
       case "mark-todo-done":
         const todoItem = actionTrigger.closest(
@@ -98,8 +91,8 @@ class EventHandler {
         break;
       case "edit-todo":
         const todo = app.getTodo(actionTrigger.dataset.id);
-        insertEditTodoData(todo);
-        displayEditTodoDialog();
+        editTodoDialog.populate(todo);
+        editTodoDialog.display();
         break;
     }
   }
@@ -116,10 +109,10 @@ class EventHandler {
 
     if (isAddTodoForm) {
       EventHandler.#addTodo(formValues);
-      closeAddTodoDialog();
+      addTodoDialog.close();
     } else if (isEditTodoForm) {
       EventHandler.#updateTodo(target.dataset.id, formValues);
-      closeEditTodoDialog();
+      editTodoDialog.close();
     }
   }
 
