@@ -13,13 +13,17 @@
       </button>
 
       <h2>Projects</h2>
-      <ul data-ui="projects" class="display-none list-style-none flex flex-column standard-gap"></ul>
+      <ul
+        data-ui="projects"
+        class="display-none list-style-none flex flex-column standard-gap"
+      ></ul>
       <button data-action="display-add-project-dialog" class="button">
         Create New Project +
       </button>
     </aside>
     <main class="standard-padding">
-      <h1 class="main-title">Your Todos</h1>
+      <h1 data-ui="main-title" class="main-title">Your Todos</h1>
+      <p data-ui="message" class="display-none"></p>
       <ul class="todos list-style-none"></ul>
     </main>
 

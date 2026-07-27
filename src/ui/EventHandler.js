@@ -8,6 +8,7 @@ import {
   addProjectDialog,
   Dialog,
 } from "./dialog.js";
+import { mainPanel } from "./mainPanel.js";
 
 class EventHandler {
   static #selectors = {
@@ -100,6 +101,18 @@ class EventHandler {
         break;
       case "display-add-project-dialog":
         addProjectDialog.display();
+        break;
+      case "display-project-todos":
+        const project = app.getProject(actionTrigger.dataset.id);
+        const todos = app.getTodos(project);
+
+        mainPanel.updateTitle(project.title);
+
+        if (todos.length === 0)
+          mainPanel.displayMessage("No todos in this project yet.");
+        else mainPanel.hideMessage();
+
+        todosList.displayTodos(todos);
         break;
     }
   }

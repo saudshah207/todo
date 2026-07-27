@@ -38,8 +38,10 @@ export const app = {
     return todo;
   },
 
-  getTodos() {
-    return Todo.todos;
+  getTodos(project = null) {
+    if (!project) return Todo.todos;
+
+    return project.todos;
   },
 
   getTodo(todoId) {
@@ -60,5 +62,9 @@ export const app = {
     console.log(Project.projects);
 
     return project;
+  },
+
+  getProject(projectId) {
+    return Project.find((project) => project.id === projectId);
   },
 };

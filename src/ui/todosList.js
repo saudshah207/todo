@@ -4,16 +4,6 @@ const selectors = {
 
 const todosList = document.querySelector(selectors.todosList);
 
-function displayTodos(todos) {
-  todosList.replaceChildren();
-
-  const display = todo.display;
-
-  for (const todo of todos) {
-    display(todo);
-  }
-}
-
 function getTodoElement(todo) {
   const listItem = document.createElement("li"),
     markDoneCheckbox = document.createElement("input"),
@@ -57,6 +47,14 @@ const todo = {
 
   remove(todoId) {
     todosList.querySelector(`[data-id='${todoId}']`).remove();
+  },
+
+  displayTodos(todos) {
+    todosList.replaceChildren();
+
+    for (const todo of todos) {
+      this.display(todo);
+    }
   },
 };
 

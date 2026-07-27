@@ -34,4 +34,8 @@ export class Project {
   add(todo) {
     if (todo instanceof Todo) this.#todos.push(todo);
   }
+
+  static find(predicate) {
+    return Project.#projects.find(predicate);
+  }
 }
