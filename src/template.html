@@ -172,5 +172,21 @@
         </div>
       </form>
     </div>
+
+    <div inert data-ui="todo-action-dialog" class="dialog" data-state="closed">
+      <h3 class="dialog-title">Peform Action</h3>
+
+      <div class="action-buttons flex flex-column">
+        <button class="button light-button" data-action="move-todo-to-project">
+          Move to a Project
+        </button>
+        <button class="button light-button" data-action="delete-todo">
+          Delete
+        </button>
+        <button data-action="close-dialog" class="button" type="button">
+          Cancel
+        </button>
+      </div>
+    </div>
   </body>
 </html>

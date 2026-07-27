@@ -91,6 +91,12 @@ export class Todo {
   static find(predicate) {
     return Todo.#todos.find(predicate);
   }
+
+  static delete(predicate) {
+    const todo = Todo.find(predicate);
+
+    Todo.#todos.splice(Todo.#todos.indexOf(todo), 1);
+  }
 }
 
 export { CheckListItem };

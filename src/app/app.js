@@ -54,6 +54,12 @@ export const app = {
     todo.toggleDone();
   },
 
+  deleteTodo(todoId) {
+    Todo.delete((todo) => todo.id === todoId);
+
+    console.log(Todo.todos);
+  },
+
   addProject(title) {
     const project = new Project(title);
 

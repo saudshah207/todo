@@ -8,7 +8,8 @@ function getTodoElement(todo) {
   const listItem = document.createElement("li"),
     markDoneCheckbox = document.createElement("input"),
     title = document.createElement("h3"),
-    dueDate = document.createElement("span");
+    dueDate = document.createElement("span"),
+    actionButton = document.createElement("button");
 
   const listItemCssClasses = [
     "todo",
@@ -23,6 +24,7 @@ function getTodoElement(todo) {
   listItem.classList.add(...listItemCssClasses);
   title.classList.add("todo-title");
   dueDate.classList.add("margin-left-auto");
+  actionButton.classList.add("button", "light-button");
 
   listItem.dataset.ui = "todo";
   listItem.dataset.action = "edit-todo";
@@ -30,8 +32,10 @@ function getTodoElement(todo) {
   markDoneCheckbox.type = "checkbox";
   markDoneCheckbox.dataset.action = "mark-todo-done";
   dueDate.textContent = todo.dueDate?.toLocaleDateString();
+  actionButton.dataset.action = "perform-todo-action";
+  actionButton.textContent = "Action";
 
-  listItem.append(markDoneCheckbox, title, dueDate);
+  listItem.append(markDoneCheckbox, title, dueDate, actionButton);
 
   return listItem;
 }

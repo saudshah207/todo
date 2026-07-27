@@ -14,6 +14,7 @@ const selectors = {
   editTodoDialogDueDate: "#edit-dueDate",
   editTodoDialogPriority: "#edit-priority",
   addProjectDialog: "[data-ui='add-project-dialog']",
+  todoActionDialog: "[data-ui='todo-action-dialog']",
 };
 
 class Dialog {
@@ -103,4 +104,21 @@ const addProjectDialog = new Dialog(
   document.querySelector(selectors.addProjectDialog),
 );
 
-export { addTodoDialog, editTodoDialog, addProjectDialog, Dialog };
+const needsToHaveTodoIdAttached = {
+  attachTodoId(id) {
+    this.dialog.dataset.id = id;
+  },
+};
+
+const todoActionDialog = Object.assign(
+  new Dialog(document.querySelector(selectors.todoActionDialog)),
+  needsToHaveTodoIdAttached,
+);
+
+export {
+  addTodoDialog,
+  editTodoDialog,
+  addProjectDialog,
+  todoActionDialog,
+  Dialog,
+};

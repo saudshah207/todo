@@ -6,6 +6,7 @@ import {
   addTodoDialog,
   editTodoDialog,
   addProjectDialog,
+  todoActionDialog,
   Dialog,
 } from "./dialog.js";
 import { mainPanel } from "./mainPanel.js";
@@ -19,6 +20,7 @@ class EventHandler {
     addTodoForm: "[data-ui='add-todo-form']",
     editTodoForm: "[data-ui='edit-todo-form']",
     addProjectForm: "[data-ui='add-project-form']",
+    todoActionDialog: "[data-ui='todo-action-dialog']",
   };
 
   static #getTodoFormValues(formElements) {
@@ -114,6 +116,20 @@ class EventHandler {
 
         todosList.displayTodos(todos);
         break;
+      case "perform-todo-action":
+        const todoId = actionTrigger.closest(EventHandler.#selectors.todoItem)
+          .dataset.id;
+        todoActionDialog.attachTodoId(todoId);
+        todoActionDialog.display();
+        break;
+      case "delete-todo": {
+        const todoId = actionTrigger.closest(
+          EventHandler.#selectors.todoActionDialog,
+        ).dataset.id;
+        app.deleteTodo(todoId);
+        todosList.remove(todoId);
+        todoActionDialog.close();
+      }
     }
   }
 
