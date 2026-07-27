@@ -1,29 +1,25 @@
-export function getFormattedDateString(date, format = "yyyy-mm-dd", separator = "-") {
-  const dateString = date?.toLocaleDateString(), // mm/dd/yyyy
-    dateStringSeparator = "/";
+export function getFormattedDateString(
+  date,
+  format = "yyyy-mm-dd",
+  separator = "-",
+) {
+  if (!date) return "";
 
-  if (!dateString) return "";
+  let formattedDatePieces = [];
 
-  let formattedDateStringPieces = [];
-
-  const formatPieces = format.split(separator),
-    dateStringPieces = dateString.split(dateStringSeparator),
-    dateStringPiecesLength = dateStringPieces.length;
+  const formatPieces = format.split(separator);
 
   for (const formatPiece of formatPieces) {
     let piece;
 
-    if (formatPiece === "yyyy")
-      piece = dateStringPieces[dateStringPiecesLength - 1];
-    else if (formatPiece === "mm")
-      piece = dateStringPieces[dateStringPiecesLength - 3];
-    else if (formatPiece === "dd")
-      piece = dateStringPieces[dateStringPiecesLength - 2];
+    if (formatPiece === "yyyy") piece = date.getFullYear();
+    else if (formatPiece === "mm") piece = date.getMonth() + 1;
+    else if (formatPiece === "dd") piece = date.getDate();
 
-    piece = +piece < 10 ? "0" + piece : piece;
+    piece = piece < 10 ? "0" + piece : piece;
 
-    formattedDateStringPieces.push(piece);
+    formattedDatePieces.push(piece);
   }
 
-  return formattedDateStringPieces.join(separator);
+  return formattedDatePieces.join(separator);
 }
