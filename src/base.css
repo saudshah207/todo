@@ -204,11 +204,13 @@ select {
   pointer-events: none;
 }
 
+label > input:not([type]),
 input[type="text"] {
   min-width: 0;
   width: 100%; /* fixes some overflow with check-item inputs */
 }
 
+label > input:not([type]),
 label > input[type="text"],
 label > textarea,
 label > .check-items-wrapper {
