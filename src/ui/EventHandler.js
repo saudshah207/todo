@@ -10,7 +10,7 @@ import {
   Dialog,
 } from "./dialog.js";
 import { mainPanel } from "./mainPanel.js";
-import { Action } from "./Action.js";
+import { ClickEventAction, SubmitEventAction } from "./EventAction.js";
 
 class EventHandler {
   static #selectors = {
@@ -73,81 +73,55 @@ class EventHandler {
     }
   }
 
-  static #delegateSubmitEvent(event) {
+  static #delegateSubmitEvent(event, actions) {
     const target = event.target;
 
     event.preventDefault();
 
     const formElements = target.elements;
 
-    switch (target.dataset.ui) {
-      case "add-todo-form":
-        EventHandler.#addTodo(EventHandler.#getTodoFormValues(formElements));
-        addTodoDialog.close();
-        break;
-      case "edit-todo-form":
-        EventHandler.#updateTodo(
-          target.dataset.id,
-          EventHandler.#getTodoFormValues(formElements),
-        );
-        editTodoDialog.close();
-        break;
-      case "add-project-form":
-        const project = app.addProject(formElements.title.value);
-
-        projectsList.display(project);
-
-        addProjectDialog.close();
-        break;
-      case "move-todo-to-project-form":
-        app.moveTodoToProject(
-          formElements.project.value,
-          todoActionDialog.dialog.dataset.id,
-        );
-
-        todoActionDialog.close();
-        todoActionDialog.toggleActionButtonsDisplay();
-        todoActionDialog.toggleFormDisplay();
-        break;
+    for (const action of actions) {
+      if (action.formIdentifier === target.dataset.ui)
+        action.perform(formElements, target);
     }
   }
 
   static {
     const clickActions = [
-      new Action("display-add-todo-dialog", function () {
+      new ClickEventAction("display-add-todo-dialog", function () {
         addTodoDialog.display();
       }),
-      new Action("close-dialog", function (actionTrigger) {
+      new ClickEventAction("close-dialog", function (actionTrigger) {
         Dialog.closeDialog(actionTrigger);
       }),
-      new Action("mark-todo-done", function (actionTrigger) {
+      new ClickEventAction("mark-todo-done", function (actionTrigger) {
         const todoItem = actionTrigger.closest(
           EventHandler.#selectors.todoItem,
         );
         app.toggleTodoDone(todoItem.dataset.id);
         todosList.toggleDone(todoItem);
       }),
-      new Action("add-check-item", function (actionTrigger) {
+      new ClickEventAction("add-check-item", function (actionTrigger) {
         const checkItemsList = actionTrigger.parentElement.querySelector(
           EventHandler.#selectors.checkItems,
         );
         checkItem.add(checkItemsList);
       }),
-      new Action("remove-check-item", function (actionTrigger) {
+      new ClickEventAction("remove-check-item", function (actionTrigger) {
         const checkItemElement = actionTrigger.closest(
           EventHandler.#selectors.checkItem,
         );
         checkItemElement.remove();
       }),
-      new Action("edit-todo", function (actionTrigger) {
+      new ClickEventAction("edit-todo", function (actionTrigger) {
         const todo = app.getTodo(actionTrigger.dataset.id);
         editTodoDialog.populate(todo);
         editTodoDialog.display();
       }),
-      new Action("display-add-project-dialog", function () {
+      new ClickEventAction("display-add-project-dialog", function () {
         addProjectDialog.display();
       }),
-      new Action("display-project-todos", function (actionTrigger) {
+      new ClickEventAction("display-project-todos", function (actionTrigger) {
         const project = app.getProject(actionTrigger.dataset.id);
         const todos = app.getTodos(project);
 
@@ -159,19 +133,19 @@ class EventHandler {
 
         todosList.displayTodos(todos);
       }),
-      new Action("perform-todo-action", function (actionTrigger) {
+      new ClickEventAction("perform-todo-action", function (actionTrigger) {
         const todoId = actionTrigger.closest(EventHandler.#selectors.todoItem)
           .dataset.id;
         todoActionDialog.attachTodoId(todoId);
         todoActionDialog.display();
       }),
-      new Action("delete-todo", function () {
+      new ClickEventAction("delete-todo", function () {
         const todoId = todoActionDialog.dialog.dataset.id;
         app.deleteTodo(todoId);
         todosList.remove(todoId);
         todoActionDialog.close();
       }),
-      new Action("move-todo-to-project", function () {
+      new ClickEventAction("move-todo-to-project", function () {
         todoActionDialog.toggleActionButtonsDisplay();
         todoActionDialog.toggleFormDisplay();
 
@@ -186,6 +160,42 @@ class EventHandler {
     document.addEventListener("click", (event) =>
       EventHandler.#delegateClickEvent(event, clickActions),
     );
-    document.addEventListener("submit", EventHandler.#delegateSubmitEvent);
+
+    const submitActions = [
+      new SubmitEventAction("add-todo-form", function (formElements) {
+        EventHandler.#addTodo(EventHandler.#getTodoFormValues(formElements));
+        addTodoDialog.close();
+      }),
+      new SubmitEventAction("edit-todo-form", function (formElements, target) {
+        EventHandler.#updateTodo(
+          target.dataset.id,
+          EventHandler.#getTodoFormValues(formElements),
+        );
+        editTodoDialog.close();
+      }),
+      new SubmitEventAction("add-project-form", function (formElements) {
+        const project = app.addProject(formElements.title.value);
+
+        projectsList.display(project);
+
+        addProjectDialog.close();
+      }),
+      new SubmitEventAction("move-todo-to-project-form", function (
+        formElements,
+      ) {
+        app.moveTodoToProject(
+          formElements.project.value,
+          todoActionDialog.dialog.dataset.id,
+        );
+
+        todoActionDialog.close();
+        todoActionDialog.toggleActionButtonsDisplay();
+        todoActionDialog.toggleFormDisplay();
+      }),
+    ];
+
+    document.addEventListener("submit", (event) =>
+      EventHandler.#delegateSubmitEvent(event, submitActions),
+    );
   }
 }
