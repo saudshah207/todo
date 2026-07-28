@@ -73,4 +73,12 @@ export const app = {
   getProject(projectId) {
     return Project.find((project) => project.id === projectId);
   },
+
+  getProjects() {
+    return Project.projects;
+  },
+
+  moveTodoToProject(projectId, todoId) {
+    this.getProject(projectId).todos.push(this.getTodo(todoId));
+  },
 };

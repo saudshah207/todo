@@ -3,6 +3,7 @@ import { getFormattedDateString } from "./date.js";
 
 const selectors = {
   dialog: ".dialog",
+  form: "form",
   checkItemsList: "[data-ui='check-items']",
   checkListItem: "[name='checkItem']",
   checkItemCheckBox: "[name='isChecked']",
@@ -15,6 +16,7 @@ const selectors = {
   editTodoDialogPriority: "#edit-priority",
   addProjectDialog: "[data-ui='add-project-dialog']",
   todoActionDialog: "[data-ui='todo-action-dialog']",
+  dialogActionButtons: "[data-ui='dialog-action-buttons']",
 };
 
 class Dialog {
@@ -110,9 +112,29 @@ const needsToHaveTodoIdAttached = {
   },
 };
 
-const todoActionDialog = Object.assign(
-  new Dialog(document.querySelector(selectors.todoActionDialog)),
+const needsToToggleDisplayOfItsElements = function (dialog) {
+  return {
+    actionButtons: dialog.dialog.querySelector(selectors.dialogActionButtons),
+    form: dialog.dialog.querySelector(selectors.form),
+
+    toggleActionButtonsDisplay() {
+      this.actionButtons.classList.toggle("display-none");
+    },
+
+    toggleFormDisplay() {
+      this.form.classList.toggle("display-none");
+    },
+  };
+};
+
+let todoActionDialog = new Dialog(
+  document.querySelector(selectors.todoActionDialog),
+);
+
+todoActionDialog = Object.assign(
+  todoActionDialog,
   needsToHaveTodoIdAttached,
+  needsToToggleDisplayOfItsElements(todoActionDialog),
 );
 
 export {

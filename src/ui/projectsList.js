@@ -30,11 +30,46 @@ function getProjectElement(project) {
   return listItem;
 }
 
-const project = {
-  display(project) {
-    projectsList.classList.remove("display-none");
+function getProjectOptionElement(project) {
+  const listItem = document.createElement("li"),
+    label = document.createElement("label"),
+    radioInput = document.createElement("input");
 
-    projectsList.append(getProjectElement(project));
+  radioInput.type = "radio";
+  radioInput.name = "project";
+  radioInput.value = project.id;
+
+  label.append(radioInput);
+  label.append(project.title);
+  listItem.append(label);
+
+  return listItem;
+}
+
+const project = {
+  display(project, list = null, isOptionElementNeeded = false) {
+    const elementToDisplay = !isOptionElementNeeded
+      ? getProjectElement(project)
+      : getProjectOptionElement(project);
+
+    if (!list) list = projectsList;
+
+    list.classList.remove("display-none");
+    list.append(elementToDisplay);
+  },
+
+  displayProjects(
+    projects,
+    alternativeList = null,
+    areOptionElementsNeeded = false,
+  ) {
+    const list = !alternativeList ? projectsList : alternativeList;
+
+    list.replaceChildren();
+
+    for (const project of projects) {
+      this.display(project, list, areOptionElementsNeeded);
+    }
   },
 };
 

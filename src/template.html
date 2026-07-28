@@ -174,9 +174,35 @@
     </div>
 
     <div inert data-ui="todo-action-dialog" class="dialog" data-state="closed">
-      <h3 class="dialog-title">Peform Action</h3>
+      <h3 class="dialog-title">Perform Action</h3>
 
-      <div class="action-buttons flex flex-column">
+      <form
+        data-ui="move-todo-to-project-form"
+        action=""
+        class="display-none flex flex-column standard-gap"
+      >
+        <fieldset>
+          <legend>Select a Project to move to</legend>
+
+          <ul class="list-style-none" data-ui="projects"></ul>
+        </fieldset>
+
+        <div class="action-buttons flex flex-wrap">
+          <button class="button">Move to Project</button>
+          <button
+            data-action="close-dialog"
+            class="button light-button"
+            type="button"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+
+      <div
+        data-ui="dialog-action-buttons"
+        class="action-buttons flex flex-column"
+      >
         <button class="button light-button" data-action="move-todo-to-project">
           Move to a Project
         </button>

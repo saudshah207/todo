@@ -254,6 +254,10 @@ label > .label-text {
   text-decoration: line-through;
 }
 
+fieldset {
+  border: none;
+}
+
 @media screen and (max-width: 600px) {
   body {
     grid-template-areas: "sidebar sidebar" "main main";

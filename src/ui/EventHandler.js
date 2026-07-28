@@ -20,7 +20,7 @@ class EventHandler {
     addTodoForm: "[data-ui='add-todo-form']",
     editTodoForm: "[data-ui='edit-todo-form']",
     addProjectForm: "[data-ui='add-project-form']",
-    todoActionDialog: "[data-ui='todo-action-dialog']",
+    moveTodoToProjectForm: "[data-ui='move-todo-to-project-form']",
   };
 
   static #getTodoFormValues(formElements) {
@@ -123,13 +123,22 @@ class EventHandler {
         todoActionDialog.display();
         break;
       case "delete-todo": {
-        const todoId = actionTrigger.closest(
-          EventHandler.#selectors.todoActionDialog,
-        ).dataset.id;
+        const todoId = todoActionDialog.dialog.dataset.id;
         app.deleteTodo(todoId);
         todosList.remove(todoId);
         todoActionDialog.close();
+        break;
       }
+      case "move-todo-to-project":
+        todoActionDialog.toggleActionButtonsDisplay();
+        todoActionDialog.toggleFormDisplay();
+
+        projectsList.displayProjects(
+          app.getProjects(),
+          todoActionDialog.form.querySelector("[data-ui='projects']"),
+          true,
+        );
+        break;
     }
   }
 
@@ -138,7 +147,10 @@ class EventHandler {
 
     const isAddTodoForm = target.closest(EventHandler.#selectors.addTodoForm),
       isEditTodoForm = target.closest(EventHandler.#selectors.editTodoForm),
-      isAddProjectForm = target.closest(EventHandler.#selectors.addProjectForm);
+      isAddProjectForm = target.closest(EventHandler.#selectors.addProjectForm),
+      isMoveTodoToProjectForm = target.closest(
+        EventHandler.#selectors.moveTodoToProjectForm,
+      );
 
     event.preventDefault();
 
@@ -159,6 +171,15 @@ class EventHandler {
       projectsList.display(project);
 
       addProjectDialog.close();
+    } else if (isMoveTodoToProjectForm) {
+      app.moveTodoToProject(
+        formElements.project.value,
+        todoActionDialog.dialog.dataset.id,
+      );
+
+      todoActionDialog.close();
+      todoActionDialog.toggleActionButtonsDisplay();
+      todoActionDialog.toggleFormDisplay();
     }
   }
 
