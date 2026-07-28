@@ -50,16 +50,6 @@ class EventHandler {
     };
   }
 
-  static #addTodo(formValues) {
-    todosList.display(app.addTodo(formValues));
-  }
-
-  static #updateTodo(todoId, formValues) {
-    todosList.remove(todoId);
-
-    todosList.display(app.updateTodo(todoId, formValues));
-  }
-
   static #delegateClickEvent(event, actions) {
     const target = event.target;
 
@@ -163,14 +153,20 @@ class EventHandler {
 
     const submitActions = [
       new SubmitEventAction("add-todo-form", function (formElements) {
-        EventHandler.#addTodo(EventHandler.#getTodoFormValues(formElements));
+        todosList.display(
+          app.addTodo(EventHandler.#getTodoFormValues(formElements)),
+        );
+
         addTodoDialog.close();
       }),
       new SubmitEventAction("edit-todo-form", function (formElements, target) {
-        EventHandler.#updateTodo(
-          target.dataset.id,
-          EventHandler.#getTodoFormValues(formElements),
+        const todoId = target.dataset.id;
+
+        todosList.remove(todoId);
+        todosList.display(
+          app.updateTodo(todoId, EventHandler.#getTodoFormValues(formElements)),
         );
+        
         editTodoDialog.close();
       }),
       new SubmitEventAction("add-project-form", function (formElements) {
