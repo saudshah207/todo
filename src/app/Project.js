@@ -36,6 +36,10 @@ export class Project {
     if (todo instanceof Todo) this.#todos.push(todo);
   }
 
+  has(todo) {
+    return this.#todos.includes(todo);
+  }
+
   static find(predicate) {
     return Project.#projects.find(predicate);
   }

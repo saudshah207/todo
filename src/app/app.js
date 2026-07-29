@@ -74,8 +74,16 @@ export const app = {
     return Project.find((project) => project.id === projectId);
   },
 
-  getProjects() {
-    return Project.projects;
+  getProjects(todoProjectsShouldNotHave = null) {
+    if (!todoProjectsShouldNotHave) return Project.projects;
+
+    const projects = [];
+
+    for (const project of Project.projects) {
+      if (!project.has(todoProjectsShouldNotHave)) projects.push(project);
+    }
+
+    return projects;
   },
 
   moveTodoToProject(projectId, todoId) {

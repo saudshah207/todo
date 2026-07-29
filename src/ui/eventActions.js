@@ -107,7 +107,7 @@ const clickActions = [
     todoActionDialog.toggleFormDisplay();
 
     projectsList.displayProjects(
-      app.getProjects(),
+      app.getProjects(app.getTodo(todoActionDialog.dialog.dataset.id)),
       todoActionDialog.form.querySelector(selectors.projectsList),
       true,
     );
