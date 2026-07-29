@@ -19,7 +19,7 @@ function getProjectElement(project) {
 
   projectButton.classList.add(...projectButtonCssClasses);
 
-  projectButton.dataset.id = project.id;
+  projectButton.dataset.projectId = project.id;
   projectButton.dataset.action = "display-project-todos";
   title.textContent = project.title;
 

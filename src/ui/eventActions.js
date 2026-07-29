@@ -68,7 +68,7 @@ const clickActions = [
   }),
   new ClickEventAction("mark-todo-done", function (actionTrigger) {
     const todoItem = actionTrigger.closest(selectors.todoItem);
-    app.toggleTodoDone(todoItem.dataset.id);
+    app.toggleTodoDone(todoItem.dataset.todoId);
     todosList.toggleDone(todoItem);
   }),
   new ClickEventAction("add-check-item", function (actionTrigger) {
@@ -82,7 +82,7 @@ const clickActions = [
     checkItemElement.remove();
   }),
   new ClickEventAction("display-edit-todo-dialog", function (actionTrigger) {
-    const todo = app.getTodo(actionTrigger.dataset.id);
+    const todo = app.getTodo(actionTrigger.dataset.todoId);
     editTodoDialog.populate(todo);
     editTodoDialog.display();
   }),
@@ -90,7 +90,7 @@ const clickActions = [
     addProjectDialog.display();
   }),
   new ClickEventAction("display-project-todos", function (actionTrigger) {
-    const project = app.getProject(actionTrigger.dataset.id);
+    const project = app.getProject(actionTrigger.dataset.projectId);
     const todos = app.getTodos(project);
 
     mainPanel.updateTitle(project.title);
@@ -102,7 +102,7 @@ const clickActions = [
     todosList.displayTodos(todos);
   }),
   new ClickEventAction("display-todo-action-dialog", function (actionTrigger) {
-    const todoId = actionTrigger.closest(selectors.todoItem).dataset.id;
+    const todoId = actionTrigger.closest(selectors.todoItem).dataset.todoId;
     todoActionDialog.attachTodoId(todoId);
     todoActionDialog.display();
 
@@ -112,7 +112,7 @@ const clickActions = [
     }
   }),
   new ClickEventAction("delete-todo", function () {
-    const todoId = todoActionDialog.dialog.dataset.id;
+    const todoId = todoActionDialog.dialog.dataset.todoId;
     app.deleteTodo(todoId);
     todosList.remove(todoId);
     todoActionDialog.close();
@@ -122,7 +122,7 @@ const clickActions = [
     todoActionDialog.toggleFormDisplay();
 
     projectsList.displayProjects(
-      app.getProjects(app.getTodo(todoActionDialog.dialog.dataset.id)),
+      app.getProjects(app.getTodo(todoActionDialog.dialog.dataset.todoId)),
       todoActionDialog.form.querySelector(selectors.projectsList),
       true,
     );
@@ -138,7 +138,7 @@ const submitActions = [
     addTodoDialog.close();
   }),
   new SubmitEventAction("edit-todo-form", function (formElements, target) {
-    const todoId = target.dataset.id;
+    const todoId = target.dataset.todoId;
 
     todosList.remove(todoId);
     todosList.display(app.updateTodo(todoId, getTodoFormValues(formElements)));
@@ -155,7 +155,7 @@ const submitActions = [
   new SubmitEventAction("move-todo-to-project-form", function (formElements) {
     app.moveTodoToProject(
       formElements.project.value,
-      todoActionDialog.dialog.dataset.id,
+      todoActionDialog.dialog.dataset.todoId,
     );
 
     todoActionDialog.close();

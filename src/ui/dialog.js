@@ -66,7 +66,7 @@ const canBePopulatedWithTodoData = {
   },
 
   populate(todo) {
-    this.form.dataset.id = todo.id;
+    this.form.dataset.todoId = todo.id;
     this.title.value = todo.title;
     this.description.value = todo.description;
     this.dueDate.value = getFormattedDateString(todo.dueDate);
@@ -108,7 +108,7 @@ const addProjectDialog = new Dialog(
 
 const needsToHaveTodoIdAttached = {
   attachTodoId(id) {
-    this.dialog.dataset.id = id;
+    this.dialog.dataset.todoId = id;
   },
 };
 

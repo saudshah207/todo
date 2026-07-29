@@ -20,7 +20,7 @@ function getTodoElement(todo) {
     "align-items-center",
   ];
 
-  listItem.dataset.id = todo.id;
+  listItem.dataset.todoId = todo.id;
   listItem.classList.add(...listItemCssClasses);
   title.classList.add("todo-title");
   dueDate.classList.add("margin-left-auto");
@@ -50,7 +50,7 @@ const todo = {
   },
 
   remove(todoId) {
-    todosList.querySelector(`[data-id='${todoId}']`).remove();
+    todosList.querySelector(`[data-todo-id='${todoId}']`).remove();
   },
 
   displayTodos(todos) {
