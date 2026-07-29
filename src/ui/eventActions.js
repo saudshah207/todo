@@ -16,6 +16,7 @@ const selectors = {
   todoItem: "[data-ui='todo']",
   checkItems: "[data-ui='check-items']",
   checkItem: "[data-ui='check-item']",
+  projectsList: "[data-ui='projects']",
 };
 
 function getTodoFormValues(formElements) {
@@ -107,7 +108,7 @@ const clickActions = [
 
     projectsList.displayProjects(
       app.getProjects(),
-      todoActionDialog.form.querySelector("[data-ui='projects']"),
+      todoActionDialog.form.querySelector(selectors.projectsList),
       true,
     );
   }),
