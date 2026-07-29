@@ -54,6 +54,10 @@
   display: none;
 }
 
+.font-weight-bold {
+  font-weight: bold;
+}
+
 .button {
   appearance: none;
   padding: 0.5rem var(--standard-spacing);

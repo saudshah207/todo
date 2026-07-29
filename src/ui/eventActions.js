@@ -50,6 +50,16 @@ function getTodoFormValues(formElements) {
 }
 
 const clickActions = [
+  new ClickEventAction("display-all-todos", function () {
+    const todos = app.getTodos();
+
+    mainPanel.updateTitle(mainPanel.getDefaultTitle());
+    todosList.displayTodos(todos);
+
+    if (todos.length === 0)
+      mainPanel.displayMessage(mainPanel.getNoTodosMessage());
+    else mainPanel.hideMessage();
+  }),
   new ClickEventAction("display-add-todo-dialog", function () {
     addTodoDialog.display();
   }),
@@ -86,7 +96,7 @@ const clickActions = [
     mainPanel.updateTitle(project.title);
 
     if (todos.length === 0)
-      mainPanel.displayMessage("No todos in this project yet.");
+      mainPanel.displayMessage(mainPanel.getNoTodosInProjectMessage());
     else mainPanel.hideMessage();
 
     todosList.displayTodos(todos);
@@ -116,6 +126,8 @@ const clickActions = [
 
 const submitActions = [
   new SubmitEventAction("add-todo-form", function (formElements) {
+    mainPanel.hideMessage();
+
     todosList.display(app.addTodo(getTodoFormValues(formElements)));
 
     addTodoDialog.close();

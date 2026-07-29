@@ -8,6 +8,7 @@
   <body class="grid">
     <aside class="flex flex-column standard-padding standard-gap">
       <h2>Todo App</h2>
+      <button data-action="display-all-todos" class="button light-button font-weight-bold">See All Todos</button>
       <button data-action="display-add-todo-dialog" class="button">
         Add New +
       </button>
@@ -203,7 +204,10 @@
         data-ui="dialog-action-buttons"
         class="action-buttons flex flex-column"
       >
-        <button class="button light-button" data-action="display-projects-to-move-todo-to">
+        <button
+          class="button light-button"
+          data-action="display-projects-to-move-todo-to"
+        >
           Move to a Project
         </button>
         <button class="button light-button" data-action="delete-todo">

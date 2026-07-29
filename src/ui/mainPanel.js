@@ -24,6 +24,18 @@ const mainPanel = {
 
     messageElement.textContent = "";
   },
+
+  getNoTodosMessage() {
+    return "Seems like you don't have any todos right now.";
+  },
+
+  getNoTodosInProjectMessage() {
+    return "No todos in this project yet.";
+  },
+
+  getDefaultTitle() {
+    return "Your Todos";
+  },
 };
 
 export { mainPanel };
