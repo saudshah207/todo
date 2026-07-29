@@ -40,6 +40,10 @@ export class Project {
     return this.#todos.includes(todo);
   }
 
+  delete(todo) {
+    this.#todos.splice(this.#todos.indexOf(todo), 1);
+  }
+
   static find(predicate) {
     return Project.#projects.find(predicate);
   }

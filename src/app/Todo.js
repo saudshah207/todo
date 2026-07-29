@@ -92,9 +92,7 @@ export class Todo {
     return Todo.#todos.find(predicate);
   }
 
-  static delete(predicate) {
-    const todo = Todo.find(predicate);
-
+  static delete(todo) {
     Todo.#todos.splice(Todo.#todos.indexOf(todo), 1);
   }
 }

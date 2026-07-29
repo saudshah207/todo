@@ -55,17 +55,21 @@ export const app = {
   },
 
   deleteTodo(todoId) {
-    Todo.delete((todo) => todo.id === todoId);
+    const todo = this.getTodo(todoId);
 
-    console.log(Todo.todos);
+    Todo.delete(todo);
+
+    const projectWithTodo = Project.find((project) => project.has(todo));
+
+    projectWithTodo?.delete(todo);
+
+    console.log(Todo.todos, Project.projects);
   },
 
   addProject(title) {
     const project = new Project(title);
 
     Project.projects.push(project);
-
-    console.log(Project.projects);
 
     return project;
   },
