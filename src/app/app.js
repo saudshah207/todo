@@ -79,6 +79,6 @@ export const app = {
   },
 
   moveTodoToProject(projectId, todoId) {
-    this.getProject(projectId).todos.push(this.getTodo(todoId));
+    this.getProject(projectId).add(this.getTodo(todoId));
   },
 };

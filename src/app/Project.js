@@ -1,3 +1,4 @@
+import { Todo } from "./Todo.js";
 import { utils } from "./utils.js";
 
 export class Project {
