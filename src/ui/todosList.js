@@ -27,12 +27,12 @@ function getTodoElement(todo) {
   actionButton.classList.add("button", "light-button");
 
   listItem.dataset.ui = "todo";
-  listItem.dataset.action = "edit-todo";
+  listItem.dataset.action = "display-edit-todo-dialog";
   title.textContent = todo.title;
   markDoneCheckbox.type = "checkbox";
   markDoneCheckbox.dataset.action = "mark-todo-done";
   dueDate.textContent = todo.dueDate?.toLocaleDateString();
-  actionButton.dataset.action = "perform-todo-action";
+  actionButton.dataset.action = "display-todo-action-dialog";
   actionButton.textContent = "Action";
 
   listItem.append(markDoneCheckbox, title, dueDate, actionButton);

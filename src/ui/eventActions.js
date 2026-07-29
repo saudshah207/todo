@@ -71,7 +71,7 @@ const clickActions = [
     const checkItemElement = actionTrigger.closest(selectors.checkItem);
     checkItemElement.remove();
   }),
-  new ClickEventAction("edit-todo", function (actionTrigger) {
+  new ClickEventAction("display-edit-todo-dialog", function (actionTrigger) {
     const todo = app.getTodo(actionTrigger.dataset.id);
     editTodoDialog.populate(todo);
     editTodoDialog.display();
@@ -91,7 +91,7 @@ const clickActions = [
 
     todosList.displayTodos(todos);
   }),
-  new ClickEventAction("perform-todo-action", function (actionTrigger) {
+  new ClickEventAction("display-todo-action-dialog", function (actionTrigger) {
     const todoId = actionTrigger.closest(selectors.todoItem).dataset.id;
     todoActionDialog.attachTodoId(todoId);
     todoActionDialog.display();
@@ -102,7 +102,7 @@ const clickActions = [
     todosList.remove(todoId);
     todoActionDialog.close();
   }),
-  new ClickEventAction("move-todo-to-project", function () {
+  new ClickEventAction("display-projects-to-move-todo-to", function () {
     todoActionDialog.toggleActionButtonsDisplay();
     todoActionDialog.toggleFormDisplay();
 
