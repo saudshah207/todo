@@ -11,6 +11,12 @@ function getCheckListItems(checkItemsObject) {
   return checkListItems;
 }
 
+function deleteTodoFromAnyProject(todo) {
+  const projectWithTodo = app.getProjectWithTodo(todo);
+
+  projectWithTodo?.delete(todo);
+}
+
 export const app = {
   addTodo(todoData) {
     const todo = new Todo(
@@ -59,9 +65,7 @@ export const app = {
 
     Todo.delete(todo);
 
-    const projectWithTodo = Project.find((project) => project.has(todo));
-
-    projectWithTodo?.delete(todo);
+    deleteTodoFromAnyProject(todo);
 
     console.log(Todo.todos, Project.projects);
   },
@@ -90,7 +94,15 @@ export const app = {
     return projects;
   },
 
+  getProjectWithTodo(todo) {
+    return Project.find((project) => project.has(todo));
+  },
+
   moveTodoToProject(projectId, todoId) {
-    this.getProject(projectId).add(this.getTodo(todoId));
+    const todo = this.getTodo(todoId);
+
+    deleteTodoFromAnyProject(todo);
+
+    this.getProject(projectId).add(todo);
   },
 };
