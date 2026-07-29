@@ -20,6 +20,11 @@ function getTodoElement(todo) {
     "align-items-center",
   ];
 
+  if (todo.isDone) {
+    listItemCssClasses.push("done");
+    markDoneCheckbox.checked = true;
+  }
+
   listItem.dataset.todoId = todo.id;
   listItem.classList.add(...listItemCssClasses);
   title.classList.add("todo-title");
