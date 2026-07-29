@@ -105,6 +105,11 @@ const clickActions = [
     const todoId = actionTrigger.closest(selectors.todoItem).dataset.id;
     todoActionDialog.attachTodoId(todoId);
     todoActionDialog.display();
+
+    if (todoActionDialog.isFormBeingDisplayed()) {
+      todoActionDialog.toggleActionButtonsDisplay();
+      todoActionDialog.toggleFormDisplay();
+    }
   }),
   new ClickEventAction("delete-todo", function () {
     const todoId = todoActionDialog.dialog.dataset.id;
@@ -154,8 +159,6 @@ const submitActions = [
     );
 
     todoActionDialog.close();
-    todoActionDialog.toggleActionButtonsDisplay();
-    todoActionDialog.toggleFormDisplay();
   }),
 ];
 

@@ -124,6 +124,10 @@ const needsToToggleDisplayOfItsElements = function (dialog) {
     toggleFormDisplay() {
       this.form.classList.toggle("display-none");
     },
+
+    isFormBeingDisplayed() {
+      return !this.form.classList.contains("display-none");
+    },
   };
 };
 
