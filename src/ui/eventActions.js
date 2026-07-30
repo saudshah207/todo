@@ -137,7 +137,12 @@ const submitActions = [
   new SubmitEventAction("add-todo-form", function (formElements) {
     mainPanel.hideMessage();
 
-    todosList.display(app.addTodo(getTodoFormValues(formElements)));
+    const todo = app.addTodo(getTodoFormValues(formElements));
+
+    if (mainPanel.projectId)
+      app.moveTodoToProject(mainPanel.projectId, todo.id);
+
+    todosList.display(todo);
 
     addTodoDialog.close();
   }),
