@@ -51,6 +51,8 @@ function getTodoFormValues(formElements) {
 
 const clickActions = [
   new ClickEventAction("display-all-todos", function () {
+    mainPanel.projectId = null;
+
     const todos = app.getTodos();
 
     mainPanel.updateTitle(mainPanel.getDefaultTitle());
@@ -90,7 +92,9 @@ const clickActions = [
     addProjectDialog.display();
   }),
   new ClickEventAction("display-project-todos", function (actionTrigger) {
-    const project = app.getProject(actionTrigger.dataset.projectId);
+    mainPanel.projectId = actionTrigger.dataset.projectId;
+
+    const project = app.getProject(mainPanel.projectId);
     const todos = app.getTodos(project);
 
     mainPanel.updateTitle(project.title);
@@ -153,10 +157,11 @@ const submitActions = [
     addProjectDialog.close();
   }),
   new SubmitEventAction("move-todo-to-project-form", function (formElements) {
-    app.moveTodoToProject(
-      formElements.project.value,
-      todoActionDialog.dialog.dataset.todoId,
-    );
+    const todoId = todoActionDialog.dialog.dataset.todoId;
+
+    app.moveTodoToProject(formElements.project.value, todoId);
+
+    if (mainPanel.projectId) todosList.remove(todoId);
 
     todoActionDialog.close();
   }),

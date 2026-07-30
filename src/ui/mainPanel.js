@@ -9,6 +9,8 @@ const main = document.querySelector(selectors.main),
   messageElement = main.querySelector(selectors.message);
 
 const mainPanel = {
+  projectId: null,
+
   updateTitle(title) {
     mainTitle.textContent = title;
   },
