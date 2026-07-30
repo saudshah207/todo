@@ -65,6 +65,10 @@ const todo = {
       this.display(todo);
     }
   },
+
+  isEmpty() {
+    return todosList.childElementCount === 0;
+  },
 };
 
 export { todo as todosList };

@@ -120,6 +120,14 @@ const clickActions = [
     app.deleteTodo(todoId);
     todosList.remove(todoId);
     todoActionDialog.close();
+
+    if (todosList.isEmpty()) {
+      const noTodosMessage = mainPanel.projectId
+        ? mainPanel.getNoTodosInProjectMessage()
+        : mainPanel.getNoTodosMessage();
+
+      mainPanel.displayMessage(noTodosMessage);
+    }
   }),
   new ClickEventAction("display-projects-to-move-todo-to", function () {
     todoActionDialog.toggleActionButtonsDisplay();
@@ -166,7 +174,12 @@ const submitActions = [
 
     app.moveTodoToProject(formElements.project.value, todoId);
 
-    if (mainPanel.projectId) todosList.remove(todoId);
+    if (mainPanel.projectId) {
+      todosList.remove(todoId);
+
+      if (todosList.isEmpty())
+        mainPanel.displayMessage(mainPanel.getNoTodosInProjectMessage());
+    }
 
     todoActionDialog.close();
   }),
