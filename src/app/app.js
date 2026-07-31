@@ -17,6 +17,12 @@ function deleteTodoFromAnyProject(todo) {
   projectWithTodo?.delete(todo);
 }
 
+function markCheckItemsChecked(todo) {
+  for (const checkListItem of todo.checklist) {
+    if (!checkListItem.isChecked) checkListItem.toggle();
+  }
+}
+
 export const app = {
   addTodo(todoData) {
     const todo = new Todo(
@@ -58,6 +64,8 @@ export const app = {
     const todo = this.getTodo(todoId);
 
     todo.toggleDone();
+
+    if (todo.isDone) markCheckItemsChecked(todo);
   },
 
   deleteTodo(todoId) {
