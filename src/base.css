@@ -233,7 +233,17 @@ label > .label-text {
   flex: 0 1 10ch;
 }
 
-.check-item:hover > button {
+.remove-check-item-button {
+  display: none;
+}
+
+@media (hover: none) {
+  .remove-check-item-button {
+    display: unset;
+  }
+}
+
+.check-item:hover > .remove-check-item-button {
   display: unset;
 }
 

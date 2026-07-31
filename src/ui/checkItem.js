@@ -14,7 +14,7 @@ export const checkItem = {
       "standard-gap",
     );
     labelInput.classList.add("check-item-label");
-    deleteButton.classList.add("button", "display-none");
+    deleteButton.classList.add("button", "remove-check-item-button");
 
     checkItem.dataset.ui = "check-item";
     checkbox.type = "checkbox";
