@@ -96,6 +96,10 @@ main > * {
   margin-bottom: var(--standard-spacing);
 }
 
+.main-header {
+  justify-content: space-between;
+}
+
 .dialog {
   --padding-block: calc(var(--standard-spacing) * 2);
   --padding-inline: calc(var(--standard-spacing) * 1.5);

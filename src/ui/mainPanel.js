@@ -2,11 +2,13 @@ const selectors = {
   main: "main",
   mainTitle: "[data-ui='main-title']",
   message: "[data-ui='message']",
+  projectActionButtons: "[data-ui='project-action-buttons']",
 };
 
 const main = document.querySelector(selectors.main),
   mainTitle = main.querySelector(selectors.mainTitle),
-  messageElement = main.querySelector(selectors.message);
+  messageElement = main.querySelector(selectors.message),
+  projectActionButtons = main.querySelector(selectors.projectActionButtons);
 
 const mainPanel = {
   projectId: null,
@@ -25,6 +27,14 @@ const mainPanel = {
     messageElement.classList.add("display-none");
 
     messageElement.textContent = "";
+  },
+
+  displayProjectActionButtons() {
+    projectActionButtons.classList.remove("display-none");
+  },
+
+  hideProjectActionButtons() {
+    projectActionButtons.classList.add("display-none");
   },
 
   getNoTodosMessage() {

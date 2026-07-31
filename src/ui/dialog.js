@@ -15,6 +15,7 @@ const selectors = {
   editTodoDialogDueDate: "#edit-dueDate",
   editTodoDialogPriority: "#edit-priority",
   addProjectDialog: "[data-ui='add-project-dialog']",
+  deleteProjectDialog: "[data-ui='delete-project-dialog']",
   todoActionDialog: "[data-ui='todo-action-dialog']",
   dialogActionButtons: "[data-ui='dialog-action-buttons']",
 };
@@ -141,10 +142,15 @@ todoActionDialog = Object.assign(
   needsToToggleDisplayOfItsElements(todoActionDialog),
 );
 
+const deleteProjectDialog = new Dialog(
+  document.querySelector(selectors.deleteProjectDialog),
+);
+
 export {
   addTodoDialog,
   editTodoDialog,
   addProjectDialog,
+  deleteProjectDialog,
   todoActionDialog,
   Dialog,
 };

@@ -6,6 +6,7 @@ import {
   addTodoDialog,
   editTodoDialog,
   addProjectDialog,
+  deleteProjectDialog,
   todoActionDialog,
   Dialog,
 } from "./dialog.js";
@@ -49,19 +50,22 @@ function getTodoFormValues(formElements) {
   };
 }
 
+const displayAllTodos = new ClickEventAction("display-all-todos", function () {
+  mainPanel.projectId = null;
+  mainPanel.hideProjectActionButtons();
+
+  const todos = app.getTodos();
+
+  mainPanel.updateTitle(mainPanel.getDefaultTitle());
+  todosList.displayTodos(todos);
+
+  if (todos.length === 0)
+    mainPanel.displayMessage(mainPanel.getNoTodosMessage());
+  else mainPanel.hideMessage();
+});
+
 const clickActions = [
-  new ClickEventAction("display-all-todos", function () {
-    mainPanel.projectId = null;
-
-    const todos = app.getTodos();
-
-    mainPanel.updateTitle(mainPanel.getDefaultTitle());
-    todosList.displayTodos(todos);
-
-    if (todos.length === 0)
-      mainPanel.displayMessage(mainPanel.getNoTodosMessage());
-    else mainPanel.hideMessage();
-  }),
+  displayAllTodos,
   new ClickEventAction("display-add-todo-dialog", function () {
     addTodoDialog.display();
   }),
@@ -93,6 +97,7 @@ const clickActions = [
   }),
   new ClickEventAction("display-project-todos", function (actionTrigger) {
     mainPanel.projectId = actionTrigger.dataset.projectId;
+    mainPanel.displayProjectActionButtons();
 
     const project = app.getProject(mainPanel.projectId);
     const todos = app.getTodos(project);
@@ -139,6 +144,9 @@ const clickActions = [
       true,
     );
   }),
+  new ClickEventAction("delete-project", function () {
+    deleteProjectDialog.display();
+  }),
 ];
 
 const submitActions = [
@@ -182,6 +190,19 @@ const submitActions = [
     }
 
     todoActionDialog.close();
+  }),
+  new SubmitEventAction("delete-project-form", function () {
+    const projectId = mainPanel.projectId;
+
+    app.deleteProject(projectId);
+
+    projectsList.remove(projectId);
+
+    if (projectsList.isEmpty()) projectsList.hide();
+
+    displayAllTodos.perform();
+
+    deleteProjectDialog.close();
   }),
 ];
 

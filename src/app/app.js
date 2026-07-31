@@ -105,4 +105,8 @@ export const app = {
 
     this.getProject(projectId).add(todo);
   },
+
+  deleteProject(projectId) {
+    Project.delete(this.getProject(projectId));
+  },
 };

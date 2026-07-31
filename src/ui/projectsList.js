@@ -58,6 +58,12 @@ const project = {
     list.append(elementToDisplay);
   },
 
+  remove(projectId) {
+    projectsList
+      .querySelector(`[data-project-id='${projectId}']`)
+      .parentElement.remove();
+  },
+
   displayProjects(
     projects,
     alternativeList = null,
@@ -70,6 +76,14 @@ const project = {
     for (const project of projects) {
       this.display(project, list, areOptionElementsNeeded);
     }
+  },
+
+  isEmpty() {
+    return projectsList.childElementCount === 0;
+  },
+
+  hide() {
+    projectsList.classList.add("display-none");
   },
 };
 

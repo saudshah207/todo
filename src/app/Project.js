@@ -47,4 +47,8 @@ export class Project {
   static find(predicate) {
     return Project.#projects.find(predicate);
   }
+
+  static delete(project) {
+    Project.#projects.splice(Project.#projects.indexOf(project), 1);
+  }
 }
