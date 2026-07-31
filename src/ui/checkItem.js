@@ -22,6 +22,7 @@ export const checkItem = {
     labelInput.type = "text";
     labelInput.name = "checkItem";
     labelInput.required = true;
+    deleteButton.type = "button";
     deleteButton.textContent = "Delete";
     deleteButton.dataset.action = "remove-check-item";
 
