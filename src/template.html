@@ -230,6 +230,32 @@
       </form>
     </div>
 
+    <div inert data-ui="edit-project-dialog" class="dialog" data-state="closed">
+      <h3 class="dialog-title">Edit Project Name</h3>
+
+      <form
+        data-ui="edit-project-form"
+        action=""
+        class="flex flex-column standard-gap"
+      >
+        <label class="flex flex-wrap" for="edit-project-title">
+          <span class="label-text">Title:</span>
+          <input type="text" name="title" id="edit-project-title" required />
+        </label>
+
+        <div class="action-buttons flex flex-wrap">
+          <button class="button">Save Changes</button>
+          <button
+            data-action="close-dialog"
+            class="button light-button"
+            type="button"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+
     <div inert data-ui="todo-action-dialog" class="dialog" data-state="closed">
       <h3 class="dialog-title">Perform Action</h3>
 

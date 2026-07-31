@@ -66,8 +66,6 @@ export const app = {
     Todo.delete(todo);
 
     deleteTodoFromAnyProject(todo);
-
-    console.log(Todo.todos, Project.projects);
   },
 
   addProject(title) {
@@ -108,5 +106,9 @@ export const app = {
 
   deleteProject(projectId) {
     Project.delete(this.getProject(projectId));
+  },
+
+  updateProject(projectId, title) {
+    this.getProject(projectId).title = title;
   },
 };

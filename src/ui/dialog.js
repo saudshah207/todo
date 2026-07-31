@@ -16,6 +16,8 @@ const selectors = {
   editTodoDialogPriority: "#edit-priority",
   addProjectDialog: "[data-ui='add-project-dialog']",
   deleteProjectDialog: "[data-ui='delete-project-dialog']",
+  editProjectDialog: "[data-ui='edit-project-dialog']",
+  editProjectDialogTitle: "#edit-project-title",
   todoActionDialog: "[data-ui='todo-action-dialog']",
   dialogActionButtons: "[data-ui='dialog-action-buttons']",
 };
@@ -53,19 +55,19 @@ class Dialog {
   }
 }
 
+function addDialogElementsToBePopulated(dialog, elementIdentifiers) {
+  for (const identifier of elementIdentifiers) {
+    const [name, selector] = Object.entries(identifier)[0];
+
+    dialog[name] = dialog.dialog
+      ? dialog.dialog.querySelector(selector)
+      : document.querySelector(selector);
+  }
+
+  return dialog;
+}
+
 const canBePopulatedWithTodoData = {
-  addElementsToBePopulated(elementIdentifiers) {
-    for (const identifier of elementIdentifiers) {
-      const [name, selector] = Object.entries(identifier)[0];
-
-      this[name] = this.dialog
-        ? this.dialog.querySelector(selector)
-        : document.querySelector(selector);
-    }
-
-    return this;
-  },
-
   populate(todo) {
     this.form.dataset.todoId = todo.id;
     this.title.value = todo.title;
@@ -94,7 +96,7 @@ const addTodoDialog = new Dialog(
     canBePopulatedWithTodoData,
   );
 
-editTodoDialog.addElementsToBePopulated([
+addDialogElementsToBePopulated(editTodoDialog, [
   { form: selectors.editTodoForm },
   { title: selectors.editTodoDialogTitle },
   { description: selectors.editTodoDialogDescription },
@@ -142,15 +144,30 @@ todoActionDialog = Object.assign(
   needsToToggleDisplayOfItsElements(todoActionDialog),
 );
 
+const canBePopulatedWithProjectData = {
+  populate(project) {
+    this.title.value = project.title;
+  },
+};
+
 const deleteProjectDialog = new Dialog(
-  document.querySelector(selectors.deleteProjectDialog),
-);
+    document.querySelector(selectors.deleteProjectDialog),
+  ),
+  editProjectDialog = Object.assign(
+    new Dialog(document.querySelector(selectors.editProjectDialog)),
+    canBePopulatedWithProjectData,
+  );
+
+addDialogElementsToBePopulated(editProjectDialog, [
+  { title: selectors.editProjectDialogTitle },
+]);
 
 export {
   addTodoDialog,
   editTodoDialog,
   addProjectDialog,
   deleteProjectDialog,
+  editProjectDialog,
   todoActionDialog,
   Dialog,
 };

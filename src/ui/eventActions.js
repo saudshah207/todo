@@ -7,6 +7,7 @@ import {
   editTodoDialog,
   addProjectDialog,
   deleteProjectDialog,
+  editProjectDialog,
   todoActionDialog,
   Dialog,
 } from "./dialog.js";
@@ -147,6 +148,13 @@ const clickActions = [
   new ClickEventAction("delete-project", function () {
     deleteProjectDialog.display();
   }),
+  new ClickEventAction("edit-project", function () {
+    const project = app.getProject(mainPanel.projectId);
+
+    editProjectDialog.populate(project);
+
+    editProjectDialog.display();
+  }),
 ];
 
 const submitActions = [
@@ -203,6 +211,21 @@ const submitActions = [
     displayAllTodos.perform();
 
     deleteProjectDialog.close();
+  }),
+  new SubmitEventAction("edit-project-form", function (formElements) {
+    const newTitle = formElements.title.value,
+      projectId = mainPanel.projectId,
+      project = app.getProject(projectId);
+
+    app.updateProject(projectId, newTitle);
+
+    mainPanel.updateTitle(newTitle);
+
+    projectsList.remove(projectId);
+
+    projectsList.display(project);
+
+    editProjectDialog.close();
   }),
 ];
 
