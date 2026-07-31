@@ -8,6 +8,10 @@
   --black: #000000;
   --white: #ffffff;
 
+  --priority-low-color: rgba(0 66 37 / 0.6);
+  --priority-medium-color: rgba(255 165 0 / 0.8);
+  --priority-high-color: rgba(255 0 0 / 0.8);
+
   --standard-spacing: 1rem;
   --standard-border-radius: 0.5rem;
   --standard-border: 1px solid var(--black);
@@ -258,7 +262,29 @@ label > .label-text {
   border: var(--standard-border);
 }
 
-.todo.done > .todo-title {
+.priority {
+  color: var(--white);
+  border-radius: 1rem;
+
+  padding: 0.25rem 0.75rem;
+
+  font-size: 0.85rem;
+}
+
+.priority.low {
+  background-color: var(--priority-low-color);
+}
+
+.priority.medium {
+  background-color: var(--priority-medium-color);
+}
+
+.priority.high {
+  background-color: var(--priority-high-color);
+}
+
+.todo.done > .todo-title,
+.todo.done > .priority {
   text-decoration: line-through;
 }
 

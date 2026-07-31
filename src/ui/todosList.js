@@ -8,6 +8,7 @@ function getTodoElement(todo) {
   const listItem = document.createElement("li"),
     markDoneCheckbox = document.createElement("input"),
     title = document.createElement("h3"),
+    priority = document.createElement("span"),
     dueDate = document.createElement("span"),
     actionButton = document.createElement("button");
 
@@ -28,6 +29,7 @@ function getTodoElement(todo) {
   listItem.dataset.todoId = todo.id;
   listItem.classList.add(...listItemCssClasses);
   title.classList.add("todo-title");
+  priority.classList.add("priority");
   dueDate.classList.add("margin-left-auto");
   actionButton.classList.add("button", "light-button");
 
@@ -36,11 +38,15 @@ function getTodoElement(todo) {
   title.textContent = todo.title;
   markDoneCheckbox.type = "checkbox";
   markDoneCheckbox.dataset.action = "mark-todo-done";
+  if (todo.priority) {
+    priority.textContent = todo.priority;
+    priority.classList.add(todo.priority);
+  }
   dueDate.textContent = todo.dueDate?.toLocaleDateString();
   actionButton.dataset.action = "display-todo-action-dialog";
   actionButton.textContent = "Action";
 
-  listItem.append(markDoneCheckbox, title, dueDate, actionButton);
+  listItem.append(markDoneCheckbox, title, priority, dueDate, actionButton);
 
   return listItem;
 }
