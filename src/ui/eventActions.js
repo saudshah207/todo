@@ -168,6 +168,8 @@ const submitActions = [
 
     todosList.display(todo);
 
+    addTodoDialog.removeCheckListItems();
+
     addTodoDialog.close();
   }),
   new SubmitEventAction("edit-todo-form", function (formElements, target) {

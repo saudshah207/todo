@@ -55,7 +55,7 @@ class Dialog {
   }
 }
 
-function addDialogElementsToBePopulated(dialog, elementIdentifiers) {
+function addDialogElements(dialog, elementIdentifiers) {
   for (const identifier of elementIdentifiers) {
     const [name, selector] = Object.entries(identifier)[0];
 
@@ -66,6 +66,12 @@ function addDialogElementsToBePopulated(dialog, elementIdentifiers) {
 
   return dialog;
 }
+
+const canRemoveCheckListItems = {
+  removeCheckListItems() {
+    this.checkItemsList.replaceChildren();
+  },
+};
 
 const canBePopulatedWithTodoData = {
   populate(todo) {
@@ -88,20 +94,25 @@ const canBePopulatedWithTodoData = {
   },
 };
 
-const addTodoDialog = new Dialog(
-    document.querySelector(selectors.addTodoDialog),
+const addTodoDialog = Object.assign(
+    new Dialog(document.querySelector(selectors.addTodoDialog)),
+    canRemoveCheckListItems,
   ),
   editTodoDialog = Object.assign(
     new Dialog(document.querySelector(selectors.editTodoDialog)),
     canBePopulatedWithTodoData,
   );
 
-addDialogElementsToBePopulated(editTodoDialog, [
+addDialogElements(editTodoDialog, [
   { form: selectors.editTodoForm },
   { title: selectors.editTodoDialogTitle },
   { description: selectors.editTodoDialogDescription },
   { dueDate: selectors.editTodoDialogDueDate },
   { priority: selectors.editTodoDialogPriority },
+  { checkItemsList: selectors.checkItemsList },
+]);
+
+addDialogElements(addTodoDialog, [
   { checkItemsList: selectors.checkItemsList },
 ]);
 
@@ -158,7 +169,7 @@ const deleteProjectDialog = new Dialog(
     canBePopulatedWithProjectData,
   );
 
-addDialogElementsToBePopulated(editProjectDialog, [
+addDialogElements(editProjectDialog, [
   { title: selectors.editProjectDialogTitle },
 ]);
 

@@ -29,6 +29,8 @@ class EventHandler {
       if (action.formIdentifier === target.dataset.ui)
         action.perform(formElements, target);
     }
+
+    target.reset();
   }
 
   static {
