@@ -88,6 +88,26 @@ body {
   grid-template-areas: "sidebar main";
 }
 
+.backdrop {
+  content: "";
+
+  --backdrop-background: rgba(0 0 0 / 0.5);
+  background: var(--backdrop-background);
+  backdrop-filter: blur(4px);
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+  opacity: 0;
+
+  transition: all 0.3s ease;
+}
+
+body.dialog-active > .backdrop {
+  pointer-events: all;
+  opacity: 1;
+}
+
 aside {
   grid-area: sidebar;
 }
@@ -123,6 +143,8 @@ main > * {
   box-shadow: var(--standard-box-shadow);
   border-radius: var(--standard-border-radius);
   background: var(--white);
+
+  z-index: 1;
 }
 
 .dialog[data-state="closed"] {

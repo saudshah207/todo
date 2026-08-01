@@ -2,7 +2,9 @@ import { checkItem } from "./checkItem.js";
 import { getFormattedDateString } from "./date.js";
 
 const selectors = {
+  body: "body",
   dialog: ".dialog",
+  displayedDialog: "[data-state='open']",
   form: "form",
   checkItemsList: "[data-ui='check-items']",
   checkListItem: "[name='checkItem']",
@@ -25,6 +27,9 @@ const selectors = {
 class Dialog {
   #dialog;
 
+  static #backdropParent = document.querySelector(selectors.body);
+  static #backdropActivationCssClass = "dialog-active";
+
   constructor(element) {
     this.#dialog = element;
   }
@@ -36,22 +41,36 @@ class Dialog {
   display() {
     this.#dialog.dataset.state = "open";
     this.#dialog.inert = false;
+
+    Dialog.#toggleBackdrop();
   }
 
   close() {
     this.#dialog.dataset.state = "closed";
     this.#dialog.inert = true;
+
+    Dialog.#toggleBackdrop();
   }
 
   static #close(dialog) {
     dialog.dataset.state = "closed";
     dialog.inert = true;
+
+    Dialog.#toggleBackdrop();
   }
 
   static closeDialog(closeButton) {
-    const dialog = closeButton.closest(selectors.dialog);
+    let dialog = closeButton.closest(selectors.dialog);
+
+    dialog = !dialog
+      ? document.querySelector(selectors.displayedDialog)
+      : dialog;
 
     Dialog.#close(dialog);
+  }
+
+  static #toggleBackdrop() {
+    Dialog.#backdropParent.classList.toggle(Dialog.#backdropActivationCssClass);
   }
 }
 
