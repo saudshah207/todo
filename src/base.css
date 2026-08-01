@@ -134,6 +134,9 @@ main > * {
   --max-width: 600px;
   width: min(var(--max-width), 95%);
 
+  max-height: 97vh;
+  overflow-y: auto;
+
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
