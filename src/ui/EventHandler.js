@@ -19,8 +19,11 @@ class EventHandler {
     if (!actionTrigger) return;
 
     for (const action of actions) {
-      if (action.name === actionTrigger.dataset.action)
+      if (action.name === actionTrigger.dataset.action) {
         action.perform(actionTrigger);
+
+        break;
+      }
     }
   }
 
@@ -32,8 +35,11 @@ class EventHandler {
     const formElements = target.elements;
 
     for (const action of actions) {
-      if (action.formIdentifier === target.dataset.ui)
+      if (action.formIdentifier === target.dataset.ui) {
         action.perform(formElements, target);
+
+        break;
+      }
     }
 
     target.reset();
