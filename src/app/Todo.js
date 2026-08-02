@@ -25,6 +25,13 @@ export class Todo {
   static get todos() {
     return Todo.#todos;
   }
+  static set todos(todos) {
+    for (const todo of todos) {
+      if (!(todo instanceof Todo)) return;
+    }
+
+    Todo.#todos = todos;
+  }
 
   get id() {
     return this.#id;
@@ -88,12 +95,39 @@ export class Todo {
     this.#isDone = !this.#isDone;
   }
 
+  toJSON() {
+    return {
+      id: this.#id,
+      title: this.#title,
+      description: this.#description,
+      dueDate: this.#dueDate,
+      priority: this.#priority,
+      checklist: this.#checklist,
+      isDone: this.#isDone,
+    };
+  }
+
   static find(predicate) {
     return Todo.#todos.find(predicate);
   }
 
   static delete(todo) {
     Todo.#todos.splice(Todo.#todos.indexOf(todo), 1);
+  }
+
+  static fromJSON(data) {
+    const todo = new Todo(
+      data.title,
+      data.description,
+      data.dueDate,
+      data.priority,
+      data.checklist,
+    );
+
+    todo.#id = data.id;
+    todo.#isDone = data.isDone;
+
+    return todo;
   }
 }
 

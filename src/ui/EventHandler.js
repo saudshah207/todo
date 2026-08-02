@@ -1,4 +1,10 @@
-import { clickActions, submitActions } from "./eventActions.js";
+import { app } from "../app/app.js";
+import {
+  clickActions,
+  submitActions,
+  displayAllProjectsAction,
+  displayAllTodosAction,
+} from "./eventActions.js";
 
 class EventHandler {
   static #selectors = {
@@ -41,5 +47,10 @@ class EventHandler {
     document.addEventListener("submit", (event) =>
       EventHandler.#delegateSubmitEvent(event, submitActions),
     );
+
+    app.loadData();
+
+    displayAllProjectsAction.perform();
+    displayAllTodosAction.perform();
   }
 }

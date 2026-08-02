@@ -9,11 +9,18 @@ export class Project {
   #todos = [];
 
   constructor(title) {
-    this.#title = title;
+    this.title = title;
   }
 
   static get projects() {
     return Project.#projects;
+  }
+  static set projects(projects) {
+    for (const project of projects) {
+      if (!(project instanceof Project)) return;
+    }
+
+    Project.#projects = projects;
   }
 
   get id() {
@@ -44,11 +51,31 @@ export class Project {
     this.#todos.splice(this.#todos.indexOf(todo), 1);
   }
 
+  toJSON() {
+    return {
+      id: this.#id,
+      title: this.#title,
+      todos: this.#todos,
+    };
+  }
+
   static find(predicate) {
     return Project.#projects.find(predicate);
   }
 
   static delete(project) {
     Project.#projects.splice(Project.#projects.indexOf(project), 1);
+  }
+
+  static fromJSON(data) {
+    const project = new Project(data.title);
+
+    for (const todo of data.todos) {
+      project.add(todo);
+    }
+
+    project.#id = data.id;
+
+    return project;
   }
 }

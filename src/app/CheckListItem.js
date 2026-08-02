@@ -28,4 +28,15 @@ export class CheckListItem {
   get isChecked() {
     return this.#isChecked;
   }
+
+  toJSON() {
+    return {
+      label: this.#label,
+      isChecked: this.#isChecked,
+    };
+  }
+
+  static fromJSON(data) {
+    return new CheckListItem(data.label, data.isChecked);
+  }
 }

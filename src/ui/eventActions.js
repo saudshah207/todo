@@ -51,22 +51,32 @@ function getTodoFormValues(formElements) {
   };
 }
 
-const displayAllTodos = new ClickEventAction("display-all-todos", function () {
-  mainPanel.projectId = null;
-  mainPanel.hideProjectActionButtons();
+const displayAllProjectsAction = new ClickEventAction(
+  "display-all-projects",
+  function () {
+    projectsList.displayProjects(app.getProjects());
+  },
+);
 
-  const todos = app.getTodos();
+const displayAllTodosAction = new ClickEventAction(
+  "display-all-todos",
+  function () {
+    mainPanel.projectId = null;
+    mainPanel.hideProjectActionButtons();
 
-  mainPanel.updateTitle(mainPanel.getDefaultTitle());
-  todosList.displayTodos(todos);
+    const todos = app.getTodos();
 
-  if (todos.length === 0)
-    mainPanel.displayMessage(mainPanel.getNoTodosMessage());
-  else mainPanel.hideMessage();
-});
+    mainPanel.updateTitle(mainPanel.getDefaultTitle());
+    todosList.displayTodos(todos);
+
+    if (todos.length === 0)
+      mainPanel.displayMessage(mainPanel.getNoTodosMessage());
+    else mainPanel.hideMessage();
+  },
+);
 
 const clickActions = [
-  displayAllTodos,
+  displayAllTodosAction,
   new ClickEventAction("display-add-todo-dialog", function () {
     addTodoDialog.display();
   }),
@@ -210,7 +220,7 @@ const submitActions = [
 
     if (projectsList.isEmpty()) projectsList.hide();
 
-    displayAllTodos.perform();
+    displayAllTodosAction.perform();
 
     deleteProjectDialog.close();
   }),
@@ -231,4 +241,9 @@ const submitActions = [
   }),
 ];
 
-export { clickActions, submitActions };
+export {
+  clickActions,
+  submitActions,
+  displayAllTodosAction,
+  displayAllProjectsAction,
+};

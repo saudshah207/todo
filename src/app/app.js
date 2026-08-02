@@ -1,5 +1,6 @@
 import { Todo, CheckListItem } from "./Todo.js";
 import { Project } from "./Project.js";
+import { storage } from "../data/storage.js";
 
 function getCheckListItems(checkItemsObject) {
   const checkListItems = [];
@@ -11,16 +12,30 @@ function getCheckListItems(checkItemsObject) {
   return checkListItems;
 }
 
+function getProjectWithTodo(todo) {
+  return Project.find((project) => project.has(todo));
+}
+
 function deleteTodoFromAnyProject(todo) {
-  const projectWithTodo = app.getProjectWithTodo(todo);
+  const projectWithTodo = getProjectWithTodo(todo);
 
   projectWithTodo?.delete(todo);
+
+  if (projectWithTodo) storage?.updateProject(projectWithTodo);
 }
 
 function markCheckItemsChecked(todo) {
   for (const checkListItem of todo.checklist) {
     if (!checkListItem.isChecked) checkListItem.toggle();
   }
+}
+
+function updateTodoInStorage(todo) {
+  storage?.updateTodo(todo);
+
+  const projectWithTodo = getProjectWithTodo(todo);
+
+  if (projectWithTodo) storage?.updateProject(projectWithTodo);
 }
 
 export const app = {
@@ -35,6 +50,8 @@ export const app = {
 
     Todo.todos.push(todo);
 
+    storage?.saveTodo(todo);
+
     return todo;
   },
 
@@ -46,6 +63,8 @@ export const app = {
     todo.dueDate = todoData.dueDate;
     todo.priority = todoData.priority;
     todo.checklist = getCheckListItems(todoData.checkItems);
+
+    updateTodoInStorage(todo);
 
     return todo;
   },
@@ -66,6 +85,8 @@ export const app = {
     todo.toggleDone();
 
     if (todo.isDone) markCheckItemsChecked(todo);
+
+    updateTodoInStorage(todo);
   },
 
   deleteTodo(todoId) {
@@ -74,12 +95,16 @@ export const app = {
     Todo.delete(todo);
 
     deleteTodoFromAnyProject(todo);
+
+    storage?.deleteTodo(todo);
   },
 
   addProject(title) {
     const project = new Project(title);
 
     Project.projects.push(project);
+
+    storage?.saveProject(project);
 
     return project;
   },
@@ -100,23 +125,40 @@ export const app = {
     return projects;
   },
 
-  getProjectWithTodo(todo) {
-    return Project.find((project) => project.has(todo));
-  },
-
   moveTodoToProject(projectId, todoId) {
     const todo = this.getTodo(todoId);
 
     deleteTodoFromAnyProject(todo);
 
-    this.getProject(projectId).add(todo);
+    const project = this.getProject(projectId);
+
+    project.add(todo);
+
+    storage?.updateProject(project);
   },
 
   deleteProject(projectId) {
-    Project.delete(this.getProject(projectId));
+    const project = this.getProject(projectId);
+
+    Project.delete(project);
+
+    storage?.deleteProject(project);
   },
 
   updateProject(projectId, title) {
-    this.getProject(projectId).title = title;
+    const project = this.getProject(projectId);
+
+    project.title = title;
+
+    storage?.updateProject(project);
+  },
+
+  loadData() {
+    const { todos, projects } = storage?.load();
+
+    if (todos) Todo.todos = todos;
+    if (projects) Project.projects = projects;
+
+    console.log(Todo.todos, Project.projects);
   },
 };
