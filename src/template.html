@@ -37,10 +37,16 @@
           data-ui="project-action-buttons"
           class="display-none flex flex-wrap standard-gap"
         >
-          <button data-action="edit-project" class="button light-button">
+          <button
+            data-action="display-edit-project-dialog"
+            class="button light-button"
+          >
             Edit
           </button>
-          <button data-action="delete-project" class="button light-button">
+          <button
+            data-action="display-delete-project-dialog"
+            class="button light-button"
+          >
             Delete
           </button>
         </div>
@@ -231,7 +237,7 @@
     </div>
 
     <div inert data-ui="edit-project-dialog" class="dialog" data-state="closed">
-      <h3 class="dialog-title">Edit Project Name</h3>
+      <h3 class="dialog-title">Edit Project Title</h3>
 
       <form
         data-ui="edit-project-form"

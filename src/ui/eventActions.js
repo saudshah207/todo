@@ -155,10 +155,10 @@ const clickActions = [
       true,
     );
   }),
-  new ClickEventAction("delete-project", function () {
+  new ClickEventAction("display-delete-project-dialog", function () {
     deleteProjectDialog.display();
   }),
-  new ClickEventAction("edit-project", function () {
+  new ClickEventAction("display-edit-project-dialog", function () {
     const project = app.getProject(mainPanel.projectId);
 
     editProjectDialog.populate(project);
