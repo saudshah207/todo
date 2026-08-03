@@ -131,6 +131,12 @@ export class Todo {
     todo.#id = data.id;
     todo.#isDone = data.isDone;
 
+    // also set date directly in case it is now in the past
+    if (data.dueDate) {
+      const dueDate = new Date(data.dueDate);
+      todo.#dueDate = dueDate;
+    }
+
     return todo;
   }
 }
