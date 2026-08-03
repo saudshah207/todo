@@ -208,7 +208,7 @@ input[type="checkbox"]::before {
   visibility: hidden;
 }
 
-input[type="checkbox"]:checked:before {
+input[type="checkbox"]:checked::before {
   visibility: visible;
 }
 
@@ -325,6 +325,48 @@ label > .label-text {
 
 fieldset {
   border: none;
+
+  --spacing-between-list-items: calc(var(--standard-spacing) / 2);
+}
+
+legend {
+  margin-bottom: calc(var(--spacing-between-list-items) * 2);
+}
+
+.projects-to-move-to {
+  gap: var(--spacing-between-list-items);
+}
+
+input[type="radio"] {
+  appearance: none;
+  padding: 0;
+
+  --dimension: 1.25rem;
+  width: var(--dimension);
+  height: var(--dimension);
+
+  border-radius: 50%;
+
+  justify-content: center;
+}
+
+input[type="radio"]::before {
+  content: "";
+
+  --dimension: 0.9rem;
+  width: var(--dimension);
+  height: var(--dimension);
+
+  background: var(--black);
+  border-radius: 50%;
+
+  transition: 0.2s transform ease;
+
+  transform: scale(0);
+}
+
+input[type="radio"]:checked:before {
+  transform: scale(1);
 }
 
 @media screen and (max-width: 600px) {

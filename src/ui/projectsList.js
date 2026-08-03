@@ -35,6 +35,9 @@ function getProjectOptionElement(project) {
     label = document.createElement("label"),
     radioInput = document.createElement("input");
 
+  label.classList.add("flex", "align-items-center")
+  radioInput.classList.add("flex", "align-items-center")
+
   radioInput.type = "radio";
   radioInput.name = "project";
   radioInput.value = project.id;
