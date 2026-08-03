@@ -187,6 +187,10 @@ textarea {
   resize: vertical;
 }
 
+input[type="date"] {
+  background: var(--white);
+}
+
 input[type="checkbox"] {
   appearance: none;
   --dimension: 1.375rem;
