@@ -204,7 +204,7 @@ const submitActions = [
     const todoId = todoActionDialog.dialog.dataset.todoId,
       projectToMoveToId = formElements.project?.value;
 
-    if (projectToMoveToId) app.moveTodoToProject(projectId, todoId);
+    if (projectToMoveToId) app.moveTodoToProject(projectToMoveToId, todoId);
 
     if (projectToMoveToId && mainPanel.projectId) {
       todosList.remove(todoId);
