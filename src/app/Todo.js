@@ -61,9 +61,13 @@ export class Todo {
       return;
     }
 
-    const date = new Date(dateString);
+    const date = new Date(dateString),
+      currentDate = new Date();
 
-    if (date.valueOf() !== NaN && date >= new Date()) this.#dueDate = date;
+    date.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
+
+    if (date.valueOf() !== NaN && date >= currentDate) this.#dueDate = date;
   }
   get dueDate() {
     return this.#dueDate;

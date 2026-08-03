@@ -1,4 +1,5 @@
 import { app } from "../app/app.js";
+import { setMinimumDueDateValues } from "./date.js";
 import {
   clickActions,
   submitActions,
@@ -53,6 +54,8 @@ class EventHandler {
     document.addEventListener("submit", (event) =>
       EventHandler.#delegateSubmitEvent(event, submitActions),
     );
+
+    setMinimumDueDateValues();
 
     app.loadData();
 

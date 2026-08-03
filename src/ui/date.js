@@ -23,3 +23,16 @@ export function getFormattedDateString(
 
   return formattedDatePieces.join(separator);
 }
+
+export function setMinimumDueDateValues() {
+  const dateInputElements = document.querySelectorAll("input[type='date']");
+
+  const minimumDate = new Date();
+  minimumDate.setHours(0, 0, 0, 0);
+
+  const minimumDateString = getFormattedDateString(minimumDate);
+
+  for (const element of dateInputElements) {
+    element.min = minimumDateString;
+  }
+}
