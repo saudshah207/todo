@@ -149,11 +149,14 @@ const clickActions = [
     todoActionDialog.toggleActionButtonsDisplay();
     todoActionDialog.toggleFormDisplay();
 
-    projectsList.displayProjects(
-      app.getProjects(app.getTodo(todoActionDialog.dialog.dataset.todoId)),
-      todoActionDialog.form.querySelector(selectors.projectsList),
-      true,
+    const projects = app.getProjects(
+      app.getTodo(todoActionDialog.dialog.dataset.todoId),
     );
+    const list = todoActionDialog.form.querySelector(selectors.projectsList);
+
+    projectsList.displayProjects(projects, list, true);
+
+    if (projects.length === 0) projectsList.displayNoProjectsMessage(list);
   }),
   new ClickEventAction("display-delete-project-dialog", function () {
     deleteProjectDialog.display();
@@ -198,11 +201,12 @@ const submitActions = [
     addProjectDialog.close();
   }),
   new SubmitEventAction("move-todo-to-project-form", function (formElements) {
-    const todoId = todoActionDialog.dialog.dataset.todoId;
+    const todoId = todoActionDialog.dialog.dataset.todoId,
+      projectToMoveToId = formElements.project?.value;
 
-    app.moveTodoToProject(formElements.project.value, todoId);
+    if (projectToMoveToId) app.moveTodoToProject(projectId, todoId);
 
-    if (mainPanel.projectId) {
+    if (projectToMoveToId && mainPanel.projectId) {
       todosList.remove(todoId);
 
       if (todosList.isEmpty())

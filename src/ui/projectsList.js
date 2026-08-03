@@ -2,7 +2,18 @@ const selectors = {
   projectsList: "[data-ui='projects']",
 };
 
-const projectsList = document.querySelector(selectors.projectsList);
+function getNoProjectsMessageElement() {
+  const message =
+      "Seems like there aren't any projects this todo can be moved to. Try creating a new project first.",
+    element = document.createElement("p");
+
+  element.textContent = message;
+
+  return element;
+}
+
+const projectsList = document.querySelector(selectors.projectsList),
+  noProjectsElement = getNoProjectsMessageElement();
 
 function getProjectElement(project) {
   const listItem = document.createElement("li"),
@@ -35,8 +46,8 @@ function getProjectOptionElement(project) {
     label = document.createElement("label"),
     radioInput = document.createElement("input");
 
-  label.classList.add("flex", "align-items-center")
-  radioInput.classList.add("flex", "align-items-center")
+  label.classList.add("flex", "align-items-center");
+  radioInput.classList.add("flex", "align-items-center");
 
   radioInput.type = "radio";
   radioInput.name = "project";
@@ -79,6 +90,12 @@ const project = {
     for (const project of projects) {
       this.display(project, list, areOptionElementsNeeded);
     }
+  },
+
+  displayNoProjectsMessage(alternativeList = null) {
+    const list = !alternativeList ? projectsList : alternativeList;
+
+    list.append(noProjectsElement);
   },
 
   isEmpty() {
