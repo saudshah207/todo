@@ -17,8 +17,7 @@ const projectsList = document.querySelector(selectors.projectsList),
 
 function getProjectElement(project) {
   const listItem = document.createElement("li"),
-    projectButton = document.createElement("button"),
-    title = document.createElement("h3");
+    projectButton = document.createElement("button");
 
   const projectButtonCssClasses = [
     "button",
@@ -26,15 +25,15 @@ function getProjectElement(project) {
     "flex",
     "standard-gap",
     "align-items-center",
+    "font-weight-bold",
+    "todos-display-button"
   ];
 
   projectButton.classList.add(...projectButtonCssClasses);
 
   projectButton.dataset.projectId = project.id;
   projectButton.dataset.action = "display-project-todos";
-  title.textContent = project.title;
-
-  projectButton.append(title);
+  projectButton.textContent = project.title;
 
   listItem.append(projectButton);
 

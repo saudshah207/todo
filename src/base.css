@@ -78,6 +78,10 @@
   box-shadow: var(--standard-box-shadow);
 }
 
+.todos-display-button {
+  font-size: 0.975rem;
+}
+
 body {
   min-height: 100vh;
 
