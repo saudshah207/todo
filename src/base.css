@@ -185,6 +185,15 @@ main > * {
   margin-bottom: var(--margin-bottom);
 }
 
+button,
+.todo,
+input[type="checkbox"],
+input[type="date"]::-webkit-calendar-picker-indicator,
+select,
+.project-option {
+  cursor: pointer;
+}
+
 label {
   --input-field-flex-basis: 350px;
 

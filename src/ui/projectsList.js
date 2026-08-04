@@ -45,7 +45,7 @@ function getProjectOptionElement(project) {
     label = document.createElement("label"),
     radioInput = document.createElement("input");
 
-  label.classList.add("flex", "align-items-center");
+  label.classList.add("flex", "align-items-center", "project-option");
   radioInput.classList.add("flex", "align-items-center");
 
   radioInput.type = "radio";
